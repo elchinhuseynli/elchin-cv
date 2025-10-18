@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTool, Rocket, Languages, Building2 } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, Briefcase, Code2, PenTool, Rocket, Languages, Building2 } from "lucide-react";
 
 interface CVData {
   name: string;

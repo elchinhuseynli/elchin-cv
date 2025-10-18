@@ -95,3 +95,4 @@ temp/
 *.jpeg
 *.gif
 *.webp
+.vercel
