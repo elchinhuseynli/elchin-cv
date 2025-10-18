@@ -522,8 +522,17 @@ const CVGenerator: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
 
       <div className="cv-content">
         <div className="header">
-          <div className="name">{cvData.name}</div>
-          <div className="title">{cvData.title[lang]}</div>
+          <div className="flex items-center gap-6 mb-4">
+            <img 
+              src="/elchin-profile.png" 
+              alt={cvData.name}
+              className="w-20 h-20 rounded-lg object-cover"
+            />
+            <div className="flex-1">
+              <div className="name">{cvData.name}</div>
+              <div className="title">{cvData.title[lang]}</div>
+            </div>
+          </div>
           <div className="contact">
             <span className="flex items-center gap-1"><Mail className="h-4 w-4" />{cvData.contacts.email}</span>
             <span className="flex items-center gap-1"><Phone className="h-4 w-4" />{cvData.contacts.phone}</span>
@@ -586,10 +595,10 @@ const CVGenerator: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
               <div className="company">{exp.company}</div>
               <div className="role">{exp.role}</div>
               <div className="dates">{exp.dates}</div>
-              <p className="mb-2 text-sm">{exp.description[lang]}</p>
+              <p className="mb-2 text-base">{exp.description[lang]}</p>
               <ul>
                 {exp.bullets[lang].map((bullet, bulletIndex) => (
-                  <li key={bulletIndex}>{bullet}</li>
+                  <li key={bulletIndex} className="text-sm">{bullet}</li>
                 ))}
               </ul>
             </div>
