@@ -10,7 +10,9 @@ import { Switch } from "@/components/ui/switch";
 import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTool, Languages, Sun, Moon, GalleryVerticalEnd, GraduationCap, Award } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import CVPage from "@/pages/CVPage";
-import DynamicSwiper from "@/components/DynamicSwiper";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
 import { cvData } from "./data/cvData";
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
@@ -749,16 +751,19 @@ const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
 
       {/* Mobile Swiper */}
       <div className="md:hidden">
-        <DynamicSwiper
-          className="project-swiper"
-          slidesPerView={1.2}
+        <Swiper
+          modules={[Pagination]}
           spaceBetween={16}
-          pagination={true}
+          slidesPerView={1.2}
+          pagination={{ clickable: true }}
+          className="project-swiper"
         >
           {filtered.map((p) => (
-            <ProjectCard key={p.title[lang]} project={p} />
+            <SwiperSlide key={p.title[lang]}>
+              <ProjectCard project={p} />
+            </SwiperSlide>
           ))}
-        </DynamicSwiper>
+        </Swiper>
       </div>
     </div>
   );
@@ -779,7 +784,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl p-6 space-y-8 md:space-y-6">
+    <div className="mx-auto max-w-6xl p-6">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-muted/40" role="navigation" aria-label="Main navigation">
         <div className="flex items-center justify-between py-4">
@@ -969,7 +974,7 @@ function ProfilePage() {
             </div>
       </nav>
 
-      <main role="main">
+      <main role="main" className="space-y-8 md:space-y-6">
         {/* Header */}
       <Card className="overflow-hidden border-muted/40">
         <CardContent className="p-6">
