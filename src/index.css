@@ -81,3 +81,31 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+/* Swiper Custom Styles */
+.project-swiper {
+  padding: 0 0 40px 0;
+}
+
+.project-swiper .swiper-button-next,
+.project-swiper .swiper-button-prev {
+  color: hsl(var(--primary));
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+}
+
+.project-swiper .swiper-button-next:after,
+.project-swiper .swiper-button-prev:after {
+  font-size: 16px;
+}
+
+.project-swiper .swiper-pagination-bullet {
+  background: hsl(var(--muted-foreground));
+  opacity: 0.5;
+}
+
+.project-swiper .swiper-pagination-bullet-active {
+  background: hsl(var(--primary));
+  opacity: 1;
+}

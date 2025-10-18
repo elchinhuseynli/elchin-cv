@@ -10,6 +10,11 @@ import { Switch } from "@/components/ui/switch";
 import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTool, Rocket, Languages, Building2, Sun, Moon, GalleryVerticalEnd } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import CVPage from "@/pages/CVPage";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
 function useTheme() {
@@ -636,6 +641,26 @@ type Category = typeof categories[number];
 const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
   const [active, setActive] = React.useState<Category>(categories[0]);
   const filtered = active.cz === "All" ? featuredProjects : featuredProjects.filter(p => p.category[lang] === active[lang]);
+  
+  const ProjectCard: React.FC<{ project: typeof featuredProjects[0] }> = ({ project }) => (
+    <Card className="group overflow-hidden border-muted/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20">
+      <div className="aspect-[16/10] bg-muted/30 overflow-hidden relative">
+        <img src={project.image} alt={project.title[lang]} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" loading="lazy" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+      <CardHeader>
+        <CardDescription className="text-xs uppercase tracking-wide group-hover:text-primary transition-colors duration-200">{project.category[lang]}</CardDescription>
+        <CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-200">{project.title[lang]}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground mb-3">{project.blurb[lang]}</p>
+        <Button variant="link" asChild className="p-0 h-auto text-sm group-hover:text-primary transition-colors duration-200">
+          <a href={project.link} target="_blank" rel="noreferrer">{lang === 'cz' ? 'Zobrazit projekt' : 'View project'} →</a>
+        </Button>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
@@ -646,25 +671,30 @@ const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
           </Button>
         ))}
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      {/* Desktop Grid */}
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((p) => (
-          <Card key={p.title[lang]} className="group overflow-hidden border-muted/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20">
-            <div className="aspect-[16/10] bg-muted/30 overflow-hidden relative">
-              <img src={p.image} alt={p.title[lang]} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-            <CardHeader>
-              <CardDescription className="text-xs uppercase tracking-wide group-hover:text-primary transition-colors duration-200">{p.category[lang]}</CardDescription>
-              <CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-200">{p.title[lang]}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-3">{p.blurb[lang]}</p>
-              <Button variant="link" asChild className="p-0 h-auto text-sm group-hover:text-primary transition-colors duration-200">
-                <a href={p.link} target="_blank" rel="noreferrer">{lang === 'cz' ? 'Zobrazit projekt' : 'View project'} →</a>
-              </Button>
-            </CardContent>
-          </Card>
+          <ProjectCard key={p.title[lang]} project={p} />
         ))}
+      </div>
+
+      {/* Mobile Swiper */}
+      <div className="md:hidden">
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={16}
+          slidesPerView={1.2}
+          navigation={true}
+          pagination={{ clickable: true }}
+          className="project-swiper"
+        >
+          {filtered.map((p) => (
+            <SwiperSlide key={p.title[lang]}>
+              <ProjectCard project={p} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   );
@@ -710,14 +740,14 @@ function ProfilePage() {
                 <a className="flex items-center gap-2 hover:underline" href={profile.contacts.linkedin} target="_blank" rel="noreferrer"><Linkedin className="h-4 w-4" />LinkedIn</a>
               </div>
             </div>
-            <div className="flex gap-2">
-              <Button variant="secondary" asChild>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Button variant="secondary" asChild className="w-full sm:w-auto">
                 <a href="#services"><Rocket className="h-4 w-4 mr-2"/>{lang === "cz" ? "Služby" : "Services"}</a>
               </Button>
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild className="w-full sm:w-auto">
                 <a href="https://flexagency.cz/nase-prace/" target="_blank" rel="noreferrer"><GalleryVerticalEnd className="h-4 w-4 mr-2"/>{lang === "cz" ? "Portfolio" : "Portfolio"}</a>
               </Button>
-              <Button asChild>
+              <Button asChild className="w-full sm:w-auto">
                 <a href={`/cv-page?lang=${lang}`} target="_blank" rel="noreferrer">
                   <Download className="h-4 w-4 mr-2"/>{lang === "cz" ? "Stáhnout CV" : "Download CV"}
                 </a>
