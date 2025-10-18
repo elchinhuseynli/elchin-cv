@@ -10,9 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTool, Languages, Sun, Moon, GalleryVerticalEnd, GraduationCap, Award } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import CVPage from "@/pages/CVPage";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/css';
+import DynamicSwiper from "@/components/DynamicSwiper";
 import { cvData } from "./data/cvData";
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
@@ -751,19 +749,16 @@ const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
 
       {/* Mobile Swiper */}
       <div className="md:hidden">
-        <Swiper
-          modules={[Pagination]}
-          spaceBetween={16}
-          slidesPerView={1.2}
-          pagination={{ clickable: true }}
+        <DynamicSwiper
           className="project-swiper"
+          slidesPerView={1.2}
+          spaceBetween={16}
+          pagination={true}
         >
           {filtered.map((p) => (
-            <SwiperSlide key={p.title[lang]}>
-              <ProjectCard project={p} />
-            </SwiperSlide>
+            <ProjectCard key={p.title[lang]} project={p} />
           ))}
-        </Swiper>
+        </DynamicSwiper>
       </div>
     </div>
   );

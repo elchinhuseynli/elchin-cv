@@ -240,7 +240,7 @@ html {
   animation: pulse 0.6s ease-out;
 }
 
-/* Swiper Custom Styles */
+/* Swiper Custom Styles - Loaded dynamically */
 .project-swiper {
   padding: 0 0 40px 0;
 }
