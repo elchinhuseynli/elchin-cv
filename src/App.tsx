@@ -472,8 +472,8 @@ const ExperienceItem: React.FC<{
               className="text-primary hover:text-primary/80 p-0 h-auto font-normal"
             >
               {isExpanded 
-                ? (lang === "cz" ? "Zobrazit méně" : "View less") 
-                : (lang === "cz" ? "Zobrazit více" : "View more")
+                ? (lang === "cz" ? "Skrýt aktivity" : "Hide activities") 
+                : (lang === "cz" ? "Hlavní aktivity a odpovědnosti" : "Main activities and responsibilities")
               }
               <span className="ml-1">{isExpanded ? "↑" : "↓"}</span>
             </Button>
