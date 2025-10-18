@@ -17,21 +17,24 @@ import 'swiper/css/pagination';
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
 function useTheme() {
-  const [isDark, setIsDark] = React.useState<boolean>(true); // Default to dark mode
-  // load on mount
-  React.useEffect(() => {
-    const saved = localStorage.getItem("isDark");
-    if (saved !== null) {
-      setIsDark(saved === 'true');
+  // Initialize with saved preference or default to dark mode
+  const [isDark, setIsDark] = React.useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem("isDark");
+      if (saved !== null) {
+        return saved === 'true';
+      }
     }
-    // If no saved preference, keep default (dark mode)
-  }, []);
-  // apply & persist
+    return true; // Default to dark mode
+  });
+  
+  // Apply theme and persist changes
   React.useEffect(() => {
     const root = window.document.documentElement;
     root.classList.toggle("dark", isDark);
     localStorage.setItem("isDark", isDark.toString());
   }, [isDark]);
+  
   return { isDark, setIsDark } as const;
 }
 
