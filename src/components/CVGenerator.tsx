@@ -104,6 +104,36 @@ const cvData: CVData = {
         "Digitální & OOH kampaně v souladu s luxusními brandovými směrnicemi; vlastnictví rozpočtu a analýza ROI.",
         "Vlastnictví vizuálního stylu: grafický design, produktová fotografie a finální tisk/produkce."
       ]
+    },
+    {
+      company: "AZSIĞORTA ASC",
+      role: "Manažer prodeje",
+      dates: "2009 – 2010",
+      description: [
+        "Rozvoj prodejních strategií a správa vztahů s klienty na ázerbájdžánském trhu.",
+        "Analýza trhu a identifikace nových obchodních příležitostí.",
+        "Koordinace prodejního týmu a dosahování stanovených cílů."
+      ]
+    },
+    {
+      company: "AXA MBASK OJSC",
+      role: "Obchodní zástupce",
+      dates: "2008 – 2009",
+      description: [
+        "Získávání nových klientů a správa stávajících vztahů na pojišťovacím trhu.",
+        "Prezentace pojišťovacích produktů a služeb potenciálním klientům.",
+        "Plnění prodejních kvót a dosahování stanovených cílů."
+      ]
+    },
+    {
+      company: "Ateshgah Insurance Group",
+      role: "Pojišťovací upisovatel",
+      dates: "2006 – 2008",
+      description: [
+        "Hodnocení a posuzování pojišťovacích rizik pro různé typy pojistných smluv.",
+        "Stanovování pojistných podmínek a sazeb na základě analýzy rizik.",
+        "Spolupráce s pojišťovacími makléři a klienty při sjednávání pojistných smluv."
+      ]
     }
   ],
   languages: [
@@ -180,6 +210,36 @@ const CVGenerator: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
         "Led marketing for luxury watches & jewelry; events, VIP presentations and international partnerships (CH/FR/DE/UK/IT).",
         "Digital & OOH campaigns aligned with luxury brand guidelines; budget ownership and ROI analysis.",
         "Owned the visual style: graphic design, product photography and final print/production."
+      ]
+    },
+    {
+      company: "AZSIĞORTA ASC",
+      role: "Sales Manager",
+      dates: "2009 – 2010",
+      description: [
+        "Developed sales strategies and managed client relationships in the Azerbaijani market.",
+        "Market analysis and identification of new business opportunities.",
+        "Sales team coordination and achievement of set targets."
+      ]
+    },
+    {
+      company: "AXA MBASK OJSC",
+      role: "Sales Representative",
+      dates: "2008 – 2009",
+      description: [
+        "Client acquisition and relationship management in the insurance market.",
+        "Presentation of insurance products and services to potential clients.",
+        "Meeting sales quotas and achieving set targets."
+      ]
+    },
+    {
+      company: "Ateshgah Insurance Group",
+      role: "Insurance Underwriter",
+      dates: "2006 – 2008",
+      description: [
+        "Evaluated and assessed insurance risks for various types of insurance policies.",
+        "Determined policy terms and rates based on risk analysis.",
+        "Collaborated with insurance brokers and clients in policy negotiations."
       ]
     }
   ];

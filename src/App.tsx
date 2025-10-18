@@ -100,6 +100,7 @@ const services = [
 const experience = [
   {
     company: "Czech University of Life Sciences (CZU)",
+    logo: "/company-logos/czu-logo.png", // We'll need to add this logo
     location: "Prague, Czech Republic",
     roles: {
       cz: "Senior Web Developer",
@@ -125,6 +126,7 @@ const experience = [
   },
   {
     company: "Flex Digital Agency s.r.o.",
+    logo: "/company-logos/flex.jpeg",
     location: "Karlovy Vary, Czech Republic",
     roles: {
       cz: "Zakladatel · Kreativní ředitel · Webový vývojář",
@@ -154,6 +156,7 @@ const experience = [
   },
   {
     company: "SUAS Group a.s.",
+    logo: "/company-logos/suas_group_logo.jpeg",
     location: "Sokolov, Czech Republic",
     roles: {
       cz: "Vedoucí grafického a webového designu",
@@ -177,6 +180,7 @@ const experience = [
   },
   {
     company: "Art de Suisse s.r.o.",
+    logo: "/company-logos/art_de_suisse_logo.jpeg",
     location: "Karlovy Vary, Czech Republic",
     roles: {
       cz: "Head of Marketing & Brand Development",
@@ -193,6 +197,72 @@ const experience = [
         "Led marketing for luxury watches & jewelry; events, VIP presentations and international partnerships (CH/FR/DE/UK/IT).",
         "Digital & OOH campaigns aligned with luxury brand guidelines; budget ownership and ROI analysis.",
         "Owned the visual style: graphic design, product photography and final print/production.",
+      ],
+    },
+  },
+  {
+    company: "AZSIĞORTA ASC",
+    logo: "/company-logos/azsigorta.jpeg",
+    location: "Azerbaijan",
+    roles: {
+      cz: "Manažer prodeje",
+      en: "Sales Manager",
+    },
+    dates: "2009 – 2010",
+    bullets: {
+      cz: [
+        "Rozvoj prodejních strategií a správa vztahů s klienty na ázerbájdžánském trhu.",
+        "Analýza trhu a identifikace nových obchodních příležitostí.",
+        "Koordinace prodejního týmu a dosahování stanovených cílů.",
+      ],
+      en: [
+        "Developed sales strategies and managed client relationships in the Azerbaijani market.",
+        "Market analysis and identification of new business opportunities.",
+        "Sales team coordination and achievement of set targets.",
+      ],
+    },
+  },
+  {
+    company: "AXA MBASK OJSC",
+    logo: "/company-logos/axa-logo.png", // We'll need to add this logo
+    location: "Azerbaijan",
+    roles: {
+      cz: "Obchodní zástupce",
+      en: "Sales Representative",
+    },
+    dates: "2008 – 2009",
+    bullets: {
+      cz: [
+        "Získávání nových klientů a správa stávajících vztahů na pojišťovacím trhu.",
+        "Prezentace pojišťovacích produktů a služeb potenciálním klientům.",
+        "Plnění prodejních kvót a dosahování stanovených cílů.",
+      ],
+      en: [
+        "Client acquisition and relationship management in the insurance market.",
+        "Presentation of insurance products and services to potential clients.",
+        "Meeting sales quotas and achieving set targets.",
+      ],
+    },
+  },
+  {
+    company: "Ateshgah Insurance Group",
+    logo: "/company-logos/ateshgah-logo.png", // We'll need to add this logo
+    location: "Azerbaijan",
+    roles: {
+      cz: "Pojišťovací upisovatel",
+      en: "Insurance Underwriter",
+    },
+    dates: "2006 – 2008",
+    bullets: {
+      cz: [
+        "Hodnocení a posuzování pojišťovacích rizik pro různé typy pojistných smluv.",
+        "Stanovování pojistných podmínek a sazeb na základě analýzy rizik.",
+        "Spolupráce s pojišťovacími makléři a klienty při sjednávání pojistných smluv.",
+      ],
+      en: [
+        "Evaluated and assessed insurance risks for various types of insurance policies.",
+        "Determined policy terms and rates based on risk analysis.",
+        "Collaborated with insurance brokers and clients in policy negotiations.",
       ],
     },
   },
@@ -264,18 +334,33 @@ const PillList: React.FC<{ items: string[]; withLogos?: boolean }> = ({ items, w
 
 const ExperienceItem: React.FC<{
   company: string;
+  logo?: string;
   location: string;
   roles: { cz: string; en: string };
   dates: string;
   bullets: { cz: string[]; en: string[] };
   lang: "cz" | "en";
-}> = ({ company, location, roles, dates, bullets, lang }) => (
+}> = ({ company, logo, location, roles, dates, bullets, lang }) => (
   <Card className="border-muted/40">
     <CardHeader>
       <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-        <div>
-          <CardTitle className="text-lg">{company}</CardTitle>
-          <CardDescription className="flex items-center gap-2 mt-1 text-sm"><Building2 className="h-4 w-4" />{location}</CardDescription>
+        <div className="flex items-center gap-3">
+          {logo && (
+            <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted/30 flex items-center justify-center">
+              <img 
+                src={logo} 
+                alt={`${company} logo`} 
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
+          <div>
+            <CardTitle className="text-lg">{company}</CardTitle>
+            <CardDescription className="flex items-center gap-2 mt-1 text-sm"><Building2 className="h-4 w-4" />{location}</CardDescription>
+          </div>
         </div>
         <div className="text-sm text-muted-foreground">{dates}</div>
       </div>
