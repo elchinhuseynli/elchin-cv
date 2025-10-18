@@ -847,15 +847,15 @@ function ProfilePage() {
                 className="md:hidden p-2 mobile-menu-button rounded-lg hover:bg-muted/50 transition-all duration-300"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
-                <div className="relative w-6 h-6">
-                  <span className={`absolute top-1/3 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-                    isMobileMenuOpen ? 'rotate-45 translate-y-1' : 'rotate-0'
+                <div className="relative w-6 h-6 flex flex-col justify-center items-center">
+                  <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ease-in-out ${
+                    isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : 'rotate-0 translate-y-0'
                   }`}></span>
-                  <span className={`absolute top-1/2 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-                    isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+                  <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ease-in-out my-1 ${
+                    isMobileMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
                   }`}></span>
-                  <span className={`absolute top-2/3 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-                    isMobileMenuOpen ? '-rotate-45 -translate-y-1' : 'rotate-0'
+                  <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ease-in-out ${
+                    isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : 'rotate-0 translate-y-0'
                   }`}></span>
                 </div>
               </button>
