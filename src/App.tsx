@@ -414,7 +414,7 @@ const skillsPrimary = [
 const SectionTitle: React.FC<{ icon?: React.ReactNode; children: React.ReactNode }> = ({ icon, children }) => (
   <div className="flex items-center gap-2 mb-3">
     {icon}
-    <h3 className="text-xl font-semibold tracking-tight">{children}</h3>
+    <h2 className="text-xl font-semibold tracking-tight">{children}</h2>
   </div>
 );
 
@@ -495,7 +495,7 @@ const ExperienceItem: React.FC<{
             </div>
             
             <div>
-              <h3 className="text-lg font-semibold">{role}</h3>
+                  <h4 className="text-lg font-semibold">{role}</h4>
               <p className="text-sm text-muted-foreground">{company}</p>
             </div>
           </div>
@@ -772,7 +772,7 @@ function ProfilePage() {
   return (
     <div className="mx-auto max-w-6xl p-6 space-y-6">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-muted/40">
+      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-muted/40" role="navigation" aria-label="Main navigation">
         <div className="flex items-center justify-between py-4">
           {/* Logo/Brand */}
           <div className="flex items-center gap-3">
@@ -846,6 +846,9 @@ function ProfilePage() {
               <button 
                 className="md:hidden p-2 mobile-menu-button rounded-lg hover:bg-muted/50 transition-all duration-300"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? (lang === "cz" ? "Zavřít menu" : "Close menu") : (lang === "cz" ? "Otevřít menu" : "Open menu")}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 <div className="relative w-6 h-6 flex flex-col justify-center items-center">
                   <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ease-in-out ${
@@ -862,11 +865,14 @@ function ProfilePage() {
         </div>
 
             {/* Mobile Navigation */}
-            <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden mobile-menu-container ${
-              isMobileMenuOpen 
-                ? 'max-h-screen opacity-100' 
-                : 'max-h-0 opacity-0'
-            }`}>
+            <div 
+              id="mobile-navigation"
+              className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden mobile-menu-container ${
+                isMobileMenuOpen 
+                  ? 'max-h-screen opacity-100' 
+                  : 'max-h-0 opacity-0'
+              }`}
+            >
               <div className="border-t border-muted/40 py-4 backdrop-blur-md bg-background/80">
                 <div className="space-y-4">
                   {/* Mobile Navigation Links */}
@@ -936,7 +942,8 @@ function ProfilePage() {
             </div>
       </nav>
 
-      {/* Header */}
+      <main role="main">
+        {/* Header */}
       <Card className="overflow-hidden border-muted/40">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -957,14 +964,16 @@ function ProfilePage() {
       </Card>
 
       {/* About */}
-      <Card id="about" className="border-muted/40">
+      <section id="about" aria-labelledby="about-heading">
+        <Card className="border-muted/40">
         <CardHeader>
-          <SectionTitle icon={<PenTool className="h-5 w-5"/>}>{lang === "cz" ? "O mně" : "About"}</SectionTitle>
+          <SectionTitle icon={<PenTool className="h-5 w-5"/>}><span id="about-heading">{lang === "cz" ? "O mně" : "About"}</span></SectionTitle>
         </CardHeader>
         <CardContent>
           <div className="mt-1 text-sm leading-7">{cvData.about[lang]}</div>
         </CardContent>
-      </Card>
+        </Card>
+      </section>
 
       {/* Services */}
       <Card id="services" className="border-muted/40">
@@ -1001,7 +1010,7 @@ function ProfilePage() {
 
       {/* Experience Timeline */}
       <div id="experience" className="space-y-8">
-        <h2 className="text-2xl font-bold tracking-tight">{lang === "cz" ? "Praxe" : "Experience"}</h2>
+        <h3 className="text-2xl font-bold tracking-tight">{lang === "cz" ? "Praxe" : "Experience"}</h3>
         
         {/* Timeline Container */}
         <div className="relative">
@@ -1145,6 +1154,7 @@ function ProfilePage() {
 
       <Separator />
       <div className="text-xs text-muted-foreground">© {new Date().getFullYear()} Elchin Huseynli — Flex Digital Agency</div>
+      </main>
     </div>
   );
 }
