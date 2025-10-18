@@ -11,9 +11,8 @@ import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTo
 import { ContactForm } from "@/components/ContactForm";
 import CVPage from "@/pages/CVPage";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
@@ -682,10 +681,9 @@ const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
       {/* Mobile Swiper */}
       <div className="md:hidden">
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Pagination]}
           spaceBetween={16}
           slidesPerView={1.2}
-          navigation={true}
           pagination={{ clickable: true }}
           className="project-swiper"
         >

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Send, Phone, MessageCircle, MessageSquare } from "lucide-react";
 
 interface ContactFormProps {
@@ -83,131 +83,102 @@ export const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
   return (
     <div className="grid md:grid-cols-2 gap-8">
       {/* Contact Form */}
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Mail className="h-5 w-5" />
-            {lang === "cz" ? "Kontaktní formulář" : "Contact Form"}
-          </CardTitle>
-          <CardDescription>
-            {lang === "cz" 
-              ? "Máte projekt na mysli? Rádi si o něm popovídáme." 
-              : "Have a project in mind? Let's talk about it."
-            }
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder={lang === "cz" ? "Vaše jméno" : "Your name"}
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder={lang === "cz" ? "Váš email" : "Your email"}
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
-              />
-            </div>
-            <div>
-              <textarea
-                name="message"
-                placeholder={lang === "cz" ? "Vaše zpráva..." : "Your message..."}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none"
-              />
-            </div>
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isSubmitting}
+      <div className="w-full">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder={lang === "cz" ? "Vaše jméno" : "Your name"}
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+            />
+          </div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder={lang === "cz" ? "Váš email" : "Your email"}
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+            />
+          </div>
+          <div>
+            <textarea
+              name="message"
+              placeholder={lang === "cz" ? "Vaše zpráva..." : "Your message..."}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows={4}
+              className="w-full px-3 py-2 border border-input rounded-md bg-background text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none"
+            />
+          </div>
+          <Button 
+            type="submit" 
+            className="w-full" 
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              lang === "cz" ? "Odesílám..." : "Sending..."
+            ) : (
+              <>
+                <Send className="h-4 w-4 mr-2" />
+                {lang === "cz" ? "Odeslat" : "Send"}
+              </>
+            )}
+          </Button>
+        </form>
+      </div>
+
+      {/* Contact Details */}
+      <div className="w-full">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <Mail className="h-4 w-4 text-muted-foreground" />
+            <a 
+              href="mailto:webmaster@flexagency.cz" 
+              className="text-sm hover:text-primary transition-colors"
             >
-              {isSubmitting ? (
-                lang === "cz" ? "Odesílám..." : "Sending..."
-              ) : (
-                <>
-                  <Send className="h-4 w-4 mr-2" />
-                  {lang === "cz" ? "Odeslat" : "Send"}
-                </>
-              )}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-
-      {/* Contact Details & Photo */}
-      <div className="space-y-6">
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Phone className="h-5 w-5" />
-              {lang === "cz" ? "Kontaktní údaje" : "Contact Details"}
-            </CardTitle>
-            <CardDescription>
-              {lang === "cz" 
-                ? "Nebo nás kontaktujte přímo:" 
-                : "Or contact us directly:"
-              }
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-3">
-              <Mail className="h-4 w-4 text-muted-foreground" />
-              <a 
-                href="mailto:webmaster@flexagency.cz" 
-                className="text-sm hover:text-primary transition-colors"
-              >
-                webmaster@flexagency.cz
-              </a>
-            </div>
-            <div className="flex items-center gap-3">
-              <Phone className="h-4 w-4 text-muted-foreground" />
-              <a 
-                href="tel:+420702006220" 
-                className="text-sm hover:text-primary transition-colors"
-              >
-                +420 702 006 220
-              </a>
-            </div>
-            <div className="flex items-center gap-3">
-              <MessageCircle className="h-4 w-4 text-muted-foreground" />
-              <a 
-                href="https://wa.me/420702006220" 
-                target="_blank" 
-                rel="noreferrer"
-                className="text-sm hover:text-primary transition-colors"
-              >
-                WhatsApp
-              </a>
-            </div>
-            <div className="flex items-center gap-3">
-              <MessageSquare className="h-4 w-4 text-muted-foreground" />
-              <a 
-                href="https://t.me/WebDevMan" 
-                target="_blank" 
-                rel="noreferrer"
-                className="text-sm hover:text-primary transition-colors"
-              >
-                Telegram (@WebDevMan)
-              </a>
-            </div>
-          </CardContent>
-        </Card>
-
+              webmaster@flexagency.cz
+            </a>
+          </div>
+          <div className="flex items-center gap-3">
+            <Phone className="h-4 w-4 text-muted-foreground" />
+            <a 
+              href="tel:+420702006220" 
+              className="text-sm hover:text-primary transition-colors"
+            >
+              +420 702 006 220
+            </a>
+          </div>
+          <div className="flex items-center gap-3">
+            <MessageCircle className="h-4 w-4 text-muted-foreground" />
+            <a 
+              href="https://wa.me/420702006220" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-sm hover:text-primary transition-colors"
+            >
+              WhatsApp
+            </a>
+          </div>
+          <div className="flex items-center gap-3">
+            <MessageSquare className="h-4 w-4 text-muted-foreground" />
+            <a 
+              href="https://t.me/WebDevMan" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-sm hover:text-primary transition-colors"
+            >
+              Telegram (@WebDevMan)
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

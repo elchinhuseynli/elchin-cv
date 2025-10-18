@@ -87,17 +87,14 @@ html {
   padding: 0 0 40px 0;
 }
 
-.project-swiper .swiper-button-next,
-.project-swiper .swiper-button-prev {
-  color: hsl(var(--primary));
-  width: 32px;
-  height: 32px;
-  margin-top: -16px;
+.project-swiper .swiper-slide {
+  height: auto;
 }
 
-.project-swiper .swiper-button-next:after,
-.project-swiper .swiper-button-prev:after {
-  font-size: 16px;
+.project-swiper .swiper-slide > div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-swiper .swiper-pagination-bullet {
