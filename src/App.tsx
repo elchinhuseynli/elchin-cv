@@ -34,20 +34,20 @@ function useTheme() {
 function useLang() {
   const [lang, setLang] = React.useState<"cz" | "en">("en"); // Default to English
   
-  // Auto-detect browser language on mount
-  React.useEffect(() => {
-    const browserLang = navigator.language.toLowerCase();
-    if (browserLang.startsWith('cs') || browserLang.startsWith('cz')) {
-      setLang('cz');
-    } else {
-      setLang('en'); // Default to English
-    }
-  }, []);
-
-  // Load saved preference on mount (overrides auto-detection)
+  // Load saved preference on mount first, then auto-detect if no saved preference
   React.useEffect(() => {
     const saved = localStorage.getItem("lang");
-    if (saved === 'cz' || saved === 'en') setLang(saved);
+    if (saved === 'cz' || saved === 'en') {
+      setLang(saved);
+    } else {
+      // Only auto-detect if no saved preference
+      const browserLang = navigator.language.toLowerCase();
+      if (browserLang.startsWith('cs') || browserLang.startsWith('cz')) {
+        setLang('cz');
+      } else {
+        setLang('en'); // Default to English
+      }
+    }
   }, []);
   
   React.useEffect(() => {
@@ -109,18 +109,28 @@ const experience = [
     dates: "2024 – present",
     bullets: {
       cz: [
-        "Vývoj responzivních a přístupných webových aplikací se zaměřením na výkon a bezpečnost.",
-        "Návrh a realizace architektury virtualizovaného prostředí; datové modely a aplikační struktura.",
-        "Analýza požadavků odborného týmu, wireframy, prototypy, testování UI/UX a iterace.",
-        "Příprava vizuální identity projektu (barvy, typografie, ikonografie).",
-        "Grafická podpora týmu – prezentační šablony, pozvánky, interní materiály.",
+        "Vývoj responzivních a uživatelsky přívětivých webových stránek a aplikací s důrazem na výkon, přístupnost a bezpečnost.",
+        "Odborná realizace a podpora aktivit zaměřených na virtualizaci IT prostředí, včetně návrhu, implementace a testování řešení.",
+        "Návrh a realizace architektury virtualizovaného prostředí pro provoz webových služeb a datových výstupů.",
+        "Analýza požadavků odborného týmu na funkčnost webových aplikací, uživatelské rozhraní a datovou strukturu.",
+        "Návrh datového modelu a architektury webové aplikace, včetně backendové a frontendové logiky.",
+        "Tvorba wireframů a prototypů uživatelského rozhraní (UI) a návrh základní navigační logiky (UX).",
+        "Návrh a realizace pilotních verzí aplikací, testování funkčnosti a UX ve spolupráci s odborným týmem.",
+        "Testování prototypů, shromažďování zpětné vazby a zapracování připomínek do finální implementace.",
+        "Příprava vizuální identity projektu (barevnost, typografie, ikonografie) a její uplatnění v digitálním prostředí.",
+        "Grafická podpora pro projektový tým – návrh prezentačních šablon, pozvánek a interních materiálů.",
       ],
       en: [
-        "Built responsive, accessible web apps with a focus on performance and security.",
-        "Designed virtualized architecture, data models and application structure.",
-        "Requirements analysis, wireframing & prototyping, UI/UX testing and iteration.",
-        "Prepared project visual identity (color, typography, iconography).",
-        "Provided graphic support – presentation templates, invitations and internal assets.",
+        "Development of responsive and user-friendly websites and applications with emphasis on performance, accessibility and security.",
+        "Professional implementation and support of activities focused on IT environment virtualization, including design, implementation and testing of solutions.",
+        "Design and implementation of virtualized environment architecture for web services and data outputs.",
+        "Analysis of requirements from professional teams for web application functionality, user interface and data structure.",
+        "Design of data model and web application architecture, including backend and frontend logic.",
+        "Creation of wireframes and prototypes of user interface (UI) and design of basic navigation logic (UX).",
+        "Design and implementation of pilot versions of applications, testing functionality and UX in cooperation with professional team.",
+        "Prototype testing, feedback collection and incorporation of comments into final implementation.",
+        "Preparation of project visual identity (colors, typography, iconography) and its application in digital environment.",
+        "Graphic support for project team – design of presentation templates, invitations and internal materials.",
       ],
     },
   },
@@ -135,22 +145,30 @@ const experience = [
     dates: "2020 – present",
     bullets: {
       cz: [
-        "Kompletní řízení a rozvoj agentury; strategie, finance a projektové plánování.",
-        "Tvorba moderních webů a e‑shopů (WordPress, Webflow, Next.js); vlastní moduly, integrace a animace (GSAP).",
-        "Vizuální identity, logotypy a brand manuály pro CZ i zahraniční klienty (real estate, hospitality, veřejný sektor).",
-        "Automatizace procesů a integrace (Monday.com → Mailchimp, webhooky, CRM napojení).",
-        "Správa infrastruktury (VPS, Docker, Coolify, Cloudflare) a dlouhodobá údržba, bezpečnost a výkon.",
-        "Koordinace týmu (design, vývoj, copy) a end‑to‑end komunikace s klienty (analýzy, nabídky, prezentace).",
-        "Digitální marketingové strategie (SEO, PPC, sociální sítě, analytika).",
+        "Kompletní řízení a rozvoj agentury, včetně strategického a finančního plánování.",
+        "Návrh vizuálních identit a brand manuálů pro české i mezinárodní klienty.",
+        "Tvorba moderních webů a e‑shopů na platformách WordPress, Webflow, Next.js a dalších.",
+        "Vývoj vlastních custom modulů, integrací a interaktivních prvků (GSAP, API, AJAX, JSON, ACF Pro).",
+        "Implementace vícejazyčných řešení pomocí WPML, Weglot a dalších překladových nástrojů.",
+        "Správa serverové infrastruktury (VPS, Docker, Coolify, Cloudflare) a DevOps procesů.",
+        "Automatizace obchodních a marketingových procesů (např. Monday.com → Mailchimp integrace, e‑mailové automatizace, webhooky).",
+        "Vedení projektového týmu – designéři, vývojáři, copywriteři, externí spolupracovníci.",
+        "Komplexní komunikace s klienty: analýza potřeb, tvorba nabídek, prezentace a konzultace.",
+        "Návrh a realizace digitálních marketingových strategií (SEO, PPC, sociální sítě, analytika).",
+        "Dlouhodobá údržba webů, optimalizace výkonu, bezpečnostní dohled a UX vylepšení.",
       ],
       en: [
-        "Agency leadership across strategy, finance and project planning.",
-        "End‑to‑end websites & e‑commerce (WordPress, Webflow, Next.js); custom modules, integrations, GSAP animations.",
-        "Brand identities, logos and design systems for local & international clients (real estate, hospitality, public sector).",
-        "Workflow automation & integrations (Monday.com → Mailchimp, webhooks, CRM).",
-        "Infrastructure (VPS, Docker, Coolify, Cloudflare); long‑term maintenance, security & performance.",
-        "Team coordination (design, dev, copy) and client communications (discovery, proposals, presentations).",
-        "Digital marketing strategies (SEO, PPC, social, analytics).",
+        "Complete agency management and development, including strategic and financial planning.",
+        "Design of visual identities and brand manuals for Czech and international clients.",
+        "Creation of modern websites and e‑shops on WordPress, Webflow, Next.js and other platforms.",
+        "Development of custom modules, integrations and interactive elements (GSAP, API, AJAX, JSON, ACF Pro).",
+        "Implementation of multilingual solutions using WPML, Weglot and other translation tools.",
+        "Server infrastructure management (VPS, Docker, Coolify, Cloudflare) and DevOps processes.",
+        "Business and marketing process automation (e.g. Monday.com → Mailchimp integration, email automation, webhooks).",
+        "Project team leadership – designers, developers, copywriters, external collaborators.",
+        "Complex client communication: needs analysis, proposal creation, presentations and consultations.",
+        "Design and implementation of digital marketing strategies (SEO, PPC, social media, analytics).",
+        "Long‑term website maintenance, performance optimization, security monitoring and UX improvements.",
       ],
     },
   },
@@ -165,16 +183,26 @@ const experience = [
     dates: "2021 – 2024",
     bullets: {
       cz: [
-        "Nové CI pro dceřiné společnosti; komplexní tiskové a digitální materiály (billboardy, katalogy, časopisy).",
-        "Vývoj responzivních webů (Webflow, WordPress, HTML/CSS/JS, PHP) s interaktivními prvky a animacemi.",
-        "Cross‑browser kompatibilita, optimalizace výkonu a bezpečnosti; integrace třetích stran API (mapy, formuláře, dynamická data).",
-        "Technická podpora, správa obsahu a spolupráce na marketingové/komunikační strategii skupiny.",
+        "Návrh a realizace nové korporátní identity pro nově vzniklé dceřiné společnosti.",
+        "Tvorba komplexních grafických materiálů — billboardy, tiskové a digitální bannery, pozvánky, logotypy, logomanuály, brožury, katalogy, letáky, zpravodaje a magazíny.",
+        "Spolupráce s externími dodavateli při výrobě tiskovin a propagačních materiálů.",
+        "Vývoj responzivních webových stránek pomocí HTML, CSS, JavaScript (případně PHP) na platformách Webflow a WordPress.",
+        "Implementace interaktivních prvků, animací a moderních UI/UX principů pro zlepšení uživatelského zážitku.",
+        "Zajištění kompatibility napříč prohlížeči, optimalizace výkonu a bezpečnosti webových řešení.",
+        "Integrace třetích stran API a nástrojů pro rozšíření funkčnosti webů (např. mapové služby, formuláře, dynamická data).",
+        "Poskytování technické podpory, správa obsahu a řešení provozních problémů.",
+        "Spolupráce s vedením skupiny na rozvoji marketingové a komunikační strategie.",
       ],
       en: [
-        "New corporate identities for subsidiaries; full range of print & digital assets (billboards, catalogues, magazines).",
-        "Responsive websites (Webflow, WordPress, HTML/CSS/JS, PHP) with interactive features and animations.",
-        "Cross‑browser compatibility, performance & security optimization; 3rd‑party API integrations (maps, forms, dynamic data).",
-        "Technical support, content ops and contribution to group marketing/communication strategy.",
+        "Design and implementation of new corporate identity for newly established subsidiaries.",
+        "Creation of comprehensive graphic materials — billboards, print and digital banners, invitations, logos, logo manuals, brochures, catalogs, flyers, newsletters and magazines.",
+        "Cooperation with external suppliers in the production of printed materials and promotional materials.",
+        "Development of responsive websites using HTML, CSS, JavaScript (possibly PHP) on Webflow and WordPress platforms.",
+        "Implementation of interactive elements, animations and modern UI/UX principles to improve user experience.",
+        "Ensuring cross‑browser compatibility, performance optimization and security of web solutions.",
+        "Integration of third‑party APIs and tools to extend website functionality (e.g. mapping services, forms, dynamic data).",
+        "Providing technical support, content management and solving operational problems.",
+        "Cooperation with group management on the development of marketing and communication strategy.",
       ],
     },
   },
@@ -189,14 +217,24 @@ const experience = [
     dates: "2014 – 2021",
     bullets: {
       cz: [
-        "Vedení marketingu pro luxusní hodinky a šperky; eventy, VIP prezentace a mezinárodní spolupráce (CH/FR/DE/UK/IT).",
-        "Reklamní kampaně (digitál + OOH) v souladu s image značek; rozpočty a vyhodnocování výkonu (ROI).",
-        "Zodpovědnost za vizuální styl: grafický design, produktová fotografie a finální tisk/produkce.",
+        "Vedení marketingového týmu a zajištění strategického směřování značky.",
+        "Vytváření a implementace marketingových plánů pro online i offline kanály.",
+        "Organizace a vizuální koordinace eventů, privátních výstav a VIP prezentací.",
+        "Spolupráce s mezinárodními partnery a dodavateli z Švýcarska, Francie, Německa, Anglie a Itálie.",
+        "Tvorba a realizace reklamních kampaní (digitálních i outdoorových) v souladu s image jednotlivých značek.",
+        "Zodpovědnost za vizuální styl společnosti – od grafického designu a produktové fotografie po finální tisk a prezentaci.",
+        "Návrh a správa marketingového rozpočtu, vyhodnocování ROI a výkonnostních metrik.",
+        "Komunikace s vedením společnosti, reporting výsledků a návrhy na optimalizaci marketingové strategie.",
       ],
       en: [
-        "Led marketing for luxury watches & jewelry; events, VIP presentations and international partnerships (CH/FR/DE/UK/IT).",
-        "Digital & OOH campaigns aligned with luxury brand guidelines; budget ownership and ROI analysis.",
-        "Owned the visual style: graphic design, product photography and final print/production.",
+        "Leading the marketing team and ensuring strategic direction of the brand.",
+        "Creating and implementing marketing plans for online and offline channels.",
+        "Organization and visual coordination of events, private exhibitions and VIP presentations.",
+        "Cooperation with international partners and suppliers from Switzerland, France, Germany, England and Italy.",
+        "Creation and implementation of advertising campaigns (digital and outdoor) in line with the image of individual brands.",
+        "Responsibility for the visual style of the company – from graphic design and product photography to final printing and presentation.",
+        "Design and management of marketing budget, ROI evaluation and performance metrics.",
+        "Communication with company management, reporting results and proposals for marketing strategy optimization.",
       ],
     },
   },
