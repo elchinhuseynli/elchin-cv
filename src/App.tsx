@@ -100,7 +100,7 @@ const services = [
 const experience = [
   {
     company: "Czech University of Life Sciences (CZU)",
-    logo: "/company-logos/czu-logo.png", // We'll need to add this logo
+    logo: "/company-logos/czuvpraze_logo.jpeg",
     location: "Prague, Czech Republic",
     roles: {
       cz: "Senior Web Developer",
@@ -224,7 +224,7 @@ const experience = [
   },
   {
     company: "AXA MBASK OJSC",
-    logo: "/company-logos/axa-logo.png", // We'll need to add this logo
+    logo: null, // Will use placeholder with initials
     location: "Azerbaijan",
     roles: {
       cz: "Obchodní zástupce",
@@ -246,7 +246,7 @@ const experience = [
   },
   {
     company: "Ateshgah Insurance Group",
-    logo: "/company-logos/ateshgah-logo.png", // We'll need to add this logo
+    logo: "/company-logos/ateshgah.png",
     location: "Azerbaijan",
     roles: {
       cz: "Pojišťovací upisovatel",
@@ -334,47 +334,63 @@ const PillList: React.FC<{ items: string[]; withLogos?: boolean }> = ({ items, w
 
 const ExperienceItem: React.FC<{
   company: string;
-  logo?: string;
+  logo?: string | null;
   location: string;
   roles: { cz: string; en: string };
   dates: string;
   bullets: { cz: string[]; en: string[] };
   lang: "cz" | "en";
-}> = ({ company, logo, location, roles, dates, bullets, lang }) => (
-  <Card className="border-muted/40">
-    <CardHeader>
-      <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-        <div className="flex items-center gap-3">
-          {logo && (
+}> = ({ company, logo, location, roles, dates, bullets, lang }) => {
+  // Generate company initials for placeholder
+  const getCompanyInitials = (companyName: string) => {
+    return companyName
+      .split(' ')
+      .map(word => word.charAt(0))
+      .join('')
+      .substring(0, 3)
+      .toUpperCase();
+  };
+
+  return (
+    <Card className="border-muted/40">
+      <CardHeader>
+        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
+          <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted/30 flex items-center justify-center">
-              <img 
-                src={logo} 
-                alt={`${company} logo`} 
-                className="w-full h-full object-contain"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
+              {logo ? (
+                <img 
+                  src={logo} 
+                  alt={`${company} logo`} 
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+              ) : null}
+              <div className={`w-full h-full flex items-center justify-center text-xs font-semibold text-muted-foreground ${logo ? 'hidden' : ''}`}>
+                {getCompanyInitials(company)}
+              </div>
             </div>
-          )}
-          <div>
-            <CardTitle className="text-lg">{company}</CardTitle>
-            <CardDescription className="flex items-center gap-2 mt-1 text-sm"><Building2 className="h-4 w-4" />{location}</CardDescription>
+            <div>
+              <CardTitle className="text-lg">{company}</CardTitle>
+              <CardDescription className="flex items-center gap-2 mt-1 text-sm"><Building2 className="h-4 w-4" />{location}</CardDescription>
+            </div>
           </div>
+          <div className="text-sm text-muted-foreground">{dates}</div>
         </div>
-        <div className="text-sm text-muted-foreground">{dates}</div>
-      </div>
-    </CardHeader>
-    <CardContent>
-      <div className="font-medium mb-2">{roles[lang]}</div>
-      <ul className="list-disc pl-5 space-y-1 text-sm">
-        {bullets[lang].map((it) => (
-          <li key={it}>{it}</li>
-        ))}
-      </ul>
-    </CardContent>
-  </Card>
-);
+      </CardHeader>
+      <CardContent>
+        <div className="font-medium mb-2">{roles[lang]}</div>
+        <ul className="list-disc pl-5 space-y-1 text-sm">
+          {bullets[lang].map((it) => (
+            <li key={it}>{it}</li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
+  );
+};
 
 // --- FEATURED PROJECTS -------------------------------------------------------
 const featuredProjects = [
