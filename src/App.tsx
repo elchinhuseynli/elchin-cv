@@ -229,7 +229,7 @@ const SkillLogo: React.FC<{ name: string }> = ({ name }) => {
     );
   }
   
-  return <span className="h-4 w-4" />;
+  return null;
 };
 
 const skillsPrimary = [
@@ -246,16 +246,19 @@ const SectionTitle: React.FC<{ icon?: React.ReactNode; children: React.ReactNode
 
 const PillList: React.FC<{ items: string[]; withLogos?: boolean }> = ({ items, withLogos }) => (
   <div className="flex flex-wrap gap-2">
-    {items.map((t) => (
-      <Badge 
-        key={t} 
-        variant="secondary" 
-        className="rounded-2xl px-3 py-1 text-sm flex items-center gap-1 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 cursor-pointer group"
-      >
-        {withLogos && <SkillLogo name={t} />}
-        <span className="group-hover:font-medium transition-all duration-300">{t}</span>
-      </Badge>
-    ))}
+    {items.map((t) => {
+      const icon = withLogos ? <SkillLogo name={t} /> : null;
+      return (
+        <Badge 
+          key={t} 
+          variant="secondary" 
+          className={`rounded-2xl px-3 py-1 text-sm flex items-center transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 cursor-pointer group ${icon ? 'gap-1' : ''}`}
+        >
+          {icon}
+          <span className="group-hover:font-medium transition-all duration-300">{t}</span>
+        </Badge>
+      );
+    })}
   </div>
 );
 
