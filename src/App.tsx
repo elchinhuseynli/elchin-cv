@@ -390,6 +390,8 @@ const ExperienceItem: React.FC<{
   bullets: { cz: string[]; en: string[] };
   lang: "cz" | "en";
 }> = ({ company, logo, location, roles, dates, bullets, lang }) => {
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  
   // Generate company initials for placeholder
   const getCompanyInitials = (companyName: string) => {
     return companyName
@@ -399,6 +401,11 @@ const ExperienceItem: React.FC<{
       .substring(0, 3)
       .toUpperCase();
   };
+
+  // Separate introduction text (first 1-2 items) from bullet points
+  const introductionText = bullets[lang].slice(0, 2);
+  const bulletPoints = bullets[lang].slice(2);
+  const hasMoreContent = bulletPoints.length > 0;
 
   return (
     <Card className="border-muted/40">
@@ -430,12 +437,42 @@ const ExperienceItem: React.FC<{
         </div>
       </CardHeader>
       <CardContent>
-        <div className="font-medium mb-2">{roles[lang]}</div>
-        <ul className="list-disc pl-5 space-y-1 text-sm">
-          {bullets[lang].map((it) => (
-            <li key={it}>{it}</li>
+        <div className="font-medium mb-3">{roles[lang]}</div>
+        
+        {/* Introduction text as paragraphs */}
+        <div className="space-y-2 mb-4">
+          {introductionText.map((text, index) => (
+            <p key={index} className="text-sm text-muted-foreground leading-relaxed">
+              {text}
+            </p>
           ))}
-        </ul>
+        </div>
+
+        {/* Bullet points with expand/collapse */}
+        {hasMoreContent && (
+          <>
+            {isExpanded && (
+              <ul className="list-disc pl-5 space-y-1 text-sm mb-3">
+                {bulletPoints.map((bullet, index) => (
+                  <li key={index}>{bullet}</li>
+                ))}
+              </ul>
+            )}
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-primary hover:text-primary/80 p-0 h-auto font-normal"
+            >
+              {isExpanded 
+                ? (lang === "cz" ? "Zobrazit méně" : "View less") 
+                : (lang === "cz" ? "Zobrazit více" : "View more")
+              }
+              <span className="ml-1">{isExpanded ? "↑" : "↓"}</span>
+            </Button>
+          </>
+        )}
       </CardContent>
     </Card>
   );
