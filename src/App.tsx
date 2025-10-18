@@ -62,7 +62,10 @@ function useLang() {
 
 // --- DATA --------------------------------------------------------------------
 const profile = {
-  name: "Elchin Huseynli, Bc.",
+  name: {
+    en: "Elchin Huseynli, Bc.",
+    cz: "Bc. Elchin Huseynli",
+  },
   headline: {
     cz: "Zakladatel & kreativní ředitel ve Flex Digital Agency | Webflow & WordPress expert | Branding · UX/UI · Automatizace",
     en: "Founder & Creative Director at Flex Digital Agency | Webflow & WordPress Expert | Branding · UX/UI · Automation",
@@ -729,7 +732,7 @@ function ProfilePage() {
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <Avatar className="h-20 w-20 ring-2 ring-muted"><AvatarImage src="/elchin photo-cut.png" alt="Elchin" className="object-cover" /><AvatarFallback>EH</AvatarFallback></Avatar>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold tracking-tight">{profile.name}</h1>
+              <h1 className="text-3xl font-bold tracking-tight">{profile.name[lang]}</h1>
               <div className="mt-2 text-sm text-muted-foreground">{profile.headline[lang]}</div>
               <div className="flex flex-wrap gap-4 mt-4 text-sm">
                 <div className="flex items-center gap-2"><MapPin className="h-4 w-4" />{profile.location}</div>

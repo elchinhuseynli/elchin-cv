@@ -2,7 +2,10 @@ import React from "react";
 import { Mail, Phone, MapPin, Globe, Briefcase, Code2, PenTool, Rocket, Languages, Building2 } from "lucide-react";
 
 interface CVData {
-  name: string;
+  name: {
+    cz: string;
+    en: string;
+  };
   title: {
     cz: string;
     en: string;
@@ -41,7 +44,10 @@ interface CVData {
 }
 
 const cvData: CVData = {
-  name: "Elchin Huseynli, Bc.",
+  name: {
+    en: "Elchin Huseynli, Bc.",
+    cz: "Bc. Elchin Huseynli",
+  },
   title: {
     cz: "Zakladatel & kreativní ředitel ve Flex Digital Agency",
     en: "Founder & Creative Director at Flex Digital Agency",
@@ -649,11 +655,11 @@ const CVGenerator: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
           <div className="flex items-center gap-6 mb-4">
             <img 
               src="/elchin photo-cut.png" 
-              alt={cvData.name}
+              alt={cvData.name[lang]}
               className="w-20 h-20 rounded-lg object-cover"
             />
             <div className="flex-1">
-              <div className="name">{cvData.name}</div>
+              <div className="name">{cvData.name[lang]}</div>
               <div className="title">{cvData.title[lang]}</div>
             </div>
           </div>
