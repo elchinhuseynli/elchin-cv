@@ -50,7 +50,7 @@ const cvData: CVData = {
   ],
   skills: [
     "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "GSAP", "Webflow", "WordPress", 
-    "Figma", "API integrace", "Docker", "Git", "Cloudflare", "Vite", "Astro"
+    "Figma", "API integrace", "Docker", "GitHub", "Cloudflare", "Vite", "Astro"
   ],
   softSkills: [
     "Kreativní myšlení", "Projektové řízení", "Komunikace s klienty", "Týmová spolupráce",

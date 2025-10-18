@@ -210,7 +210,7 @@ const SkillLogo: React.FC<{ name: string }> = ({ name }) => {
     "WordPress": "/logos/wordpress.png",
     "Figma": "/logos/figma.png",
     "Docker": "/logos/docker.png",
-    "Git": "/logos/git.png",
+    "GitHub": "/logos/github.svg",
     "Cloudflare": "/logos/cloudflare.png",
     "Vite": "/logos/vite.png",
     "Astro": "/logos/astro.png",
@@ -233,7 +233,7 @@ const SkillLogo: React.FC<{ name: string }> = ({ name }) => {
 };
 
 const skillsPrimary = [
-  "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "GSAP", "Webflow", "WordPress", "Figma", "API Integrations", "Docker", "Git", "Cloudflare", "Vite", "Astro",
+  "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "GSAP", "Webflow", "WordPress", "Figma", "API Integrations", "Docker", "GitHub", "Cloudflare", "Vite", "Astro",
 ];
 
 // --- COMPONENTS --------------------------------------------------------------
