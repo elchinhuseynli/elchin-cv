@@ -17,19 +17,20 @@ import 'swiper/css/pagination';
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
 function useTheme() {
-  const [isDark, setIsDark] = React.useState<boolean>(false);
+  const [isDark, setIsDark] = React.useState<boolean>(true); // Default to dark mode
   // load on mount
   React.useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const next = saved ? saved === 'dark' : prefersDark;
-    setIsDark(next);
+    const saved = localStorage.getItem("isDark");
+    if (saved !== null) {
+      setIsDark(saved === 'true');
+    }
+    // If no saved preference, keep default (dark mode)
   }, []);
   // apply & persist
   React.useEffect(() => {
     const root = window.document.documentElement;
     root.classList.toggle("dark", isDark);
-    localStorage.setItem("theme", isDark ? 'dark' : 'light');
+    localStorage.setItem("isDark", isDark.toString());
   }, [isDark]);
   return { isDark, setIsDark } as const;
 }
@@ -726,7 +727,7 @@ function ProfilePage() {
       <Card className="overflow-hidden border-muted/40">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-            <Avatar className="h-20 w-20 ring-2 ring-muted"><AvatarImage src="/elchin-profile.png" alt="Elchin" className="object-cover" /><AvatarFallback>EH</AvatarFallback></Avatar>
+            <Avatar className="h-20 w-20 ring-2 ring-muted"><AvatarImage src="/elchin photo-cut.png" alt="Elchin" className="object-cover" /><AvatarFallback>EH</AvatarFallback></Avatar>
             <div className="flex-1">
               <h1 className="text-3xl font-bold tracking-tight">{profile.name}</h1>
               <div className="mt-2 text-sm text-muted-foreground">{profile.headline[lang]}</div>

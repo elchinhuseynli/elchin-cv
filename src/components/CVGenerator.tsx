@@ -648,7 +648,7 @@ const CVGenerator: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
         <div className="header">
           <div className="flex items-center gap-6 mb-4">
             <img 
-              src="/elchin-profile.png" 
+              src="/elchin photo-cut.png" 
               alt={cvData.name}
               className="w-20 h-20 rounded-lg object-cover"
             />
