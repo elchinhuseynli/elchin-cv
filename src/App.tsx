@@ -779,7 +779,7 @@ function ProfilePage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl p-6 space-y-6">
+    <div className="mx-auto max-w-6xl p-6 space-y-8 md:space-y-6">
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-muted/40" role="navigation" aria-label="Main navigation">
         <div className="flex items-center justify-between py-4">
@@ -832,25 +832,9 @@ function ProfilePage() {
             
             {/* Language Switcher */}
             <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
-              <TabsList className="h-8" role="tablist" aria-label={lang === "cz" ? "Výběr jazyka" : "Language selection"}>
-                <TabsTrigger 
-                  value="en" 
-                  className="text-xs px-2"
-                  role="tab"
-                  aria-selected={lang === "en"}
-                  aria-controls="language-content-en"
-                >
-                  EN
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="cz" 
-                  className="text-xs px-2"
-                  role="tab"
-                  aria-selected={lang === "cz"}
-                  aria-controls="language-content-cz"
-                >
-                  CZ
-                </TabsTrigger>
+              <TabsList className="h-8" aria-label={lang === "cz" ? "Výběr jazyka" : "Language selection"}>
+                <TabsTrigger value="en" className="text-xs px-2">EN</TabsTrigger>
+                <TabsTrigger value="cz" className="text-xs px-2">CZ</TabsTrigger>
               </TabsList>
             </Tabs>
             
@@ -949,25 +933,9 @@ function ProfilePage() {
                     <div className="flex items-center gap-3">
                       {/* Language Switcher */}
                       <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
-                        <TabsList className="h-8 hover:scale-105 transition-transform duration-200" role="tablist" aria-label={lang === "cz" ? "Výběr jazyka" : "Language selection"}>
-                          <TabsTrigger 
-                            value="en" 
-                            className="text-xs px-2"
-                            role="tab"
-                            aria-selected={lang === "en"}
-                            aria-controls="language-content-en"
-                          >
-                            EN
-                          </TabsTrigger>
-                          <TabsTrigger 
-                            value="cz" 
-                            className="text-xs px-2"
-                            role="tab"
-                            aria-selected={lang === "cz"}
-                            aria-controls="language-content-cz"
-                          >
-                            CZ
-                          </TabsTrigger>
+                        <TabsList className="h-8 hover:scale-105 transition-transform duration-200" aria-label={lang === "cz" ? "Výběr jazyka" : "Language selection"}>
+                          <TabsTrigger value="en" className="text-xs px-2">EN</TabsTrigger>
+                          <TabsTrigger value="cz" className="text-xs px-2">CZ</TabsTrigger>
                         </TabsList>
                       </Tabs>
                       

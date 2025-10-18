@@ -51,6 +51,16 @@ const DynamicSwiper: React.FC<DynamicSwiperProps> = ({
     return <div className={className}>{children}</div>;
   }
 
+  const [modules, setModules] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    if (isMobile) {
+      import('swiper/modules').then(({ Pagination }) => {
+        setModules([Pagination]);
+      });
+    }
+  }, [isMobile]);
+
   return (
     <Suspense fallback={<div className={className}>{children}</div>}>
       <Swiper
@@ -58,6 +68,7 @@ const DynamicSwiper: React.FC<DynamicSwiperProps> = ({
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
         pagination={pagination}
+        modules={modules}
       >
         {React.Children.map(children, (child, index) => (
           <SwiperSlide key={index}>
