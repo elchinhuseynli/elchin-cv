@@ -293,48 +293,179 @@ const ExperienceItem: React.FC<{
 
 // --- FEATURED PROJECTS -------------------------------------------------------
 const featuredProjects = [
-  { title: "Bieneberg – Web pro poskytovatele topenářských a instalatérských služeb", category: "Technické služby", link: "https://flexagency.cz/work/bieneberg-web-pro-poskytovatele-topenarskych-a-instalaterskych-sluzeb/", image: "/projects/bieneberg.jpg", blurb: "Kompletní digitální prezentace – logotyp, identita a prezentační web." },
-  { title: "Císařské lázně – Nový web pro kulturní a návštěvní prostor", category: "Veřejný sektor", link: "https://flexagency.cz/work/cisarske-lazne-novy-web-pro-kulturni-a-navstevni-prostor-v-karlovych-varech/", image: "/projects/cisarske-lazne.jpg", blurb: "Informačně bohatý web reflektující novou identitu objektu." },
-  { title: "Carlsbad Reality – Modernizace webu pro developera", category: "Real Estate", link: "https://flexagency.cz/work/carlsbad-reality-modernizace-webu-pro-realitni-developera/", image: "/projects/carlsbad-reality.jpg", blurb: "Moderní web s filtrem a mapovými cenami." },
-  { title: "Institut lázeňství a balneologie – Redesign", category: "Výzkum", link: "https://flexagency.cz/work/institut-lazenstvi-a-balneologie-redesign-webu-pro-verejnou-vyzkumnou-instituci/", image: "/projects/i-lab.jpg", blurb: "Vícejazyčný web pro veřejnou instituci." },
-  { title: "JASLEIN s.r.o. – Identita a web", category: "Doprava", link: "https://flexagency.cz/work/jaslein-s-r-o-kompletni-vizualni-identita-a-prezentacni-web-pro-dopravni-spolecnost/", image: "/projects/jaslein.jpg", blurb: "Logo, identita a prezentační web s náborem." },
-  { title: "Sansei Royal Thai Massage – Nový web", category: "Wellness", link: "https://flexagency.cz/work/sansei-royal-thai-massage-novy-web-pro-thajsky-masazni-salon/", image: "/projects/sansei.jpg", blurb: "Elegantní a funkční web pro prémiové služby." },
-  { title: "Pohyb jsou lázně – EMS 2025", category: "Veřejný sektor", link: "https://flexagency.cz/work/web-pohyb-jsou-lazne/", image: "/projects/pohyb-jsou-lazne.jpg", blurb: "Dynamický landing page pro město Karlovy Vary." },
-  { title: "Villa Julius – Web a identita", category: "Hospitality", link: "https://flexagency.cz/work/webove-stranky-a-vizualni-identita-pro-villa-julius/", image: "/projects/villa-julius.jpg", blurb: "Kompletní vizuální identita a vícejazyčný web." },
-  { title: "Karlovarská sůl – Nový vizuální styl a web", category: "FMCG", link: "https://flexagency.cz/work/karlovarska-sul-novy-vizualni-styl-a-web-pro-tradicni-cesky-produkt/", image: "/projects/karlovarska-sul.jpg", blurb: "Rebranding tradiční značky a nový web." },
-  { title: "Art de Suisse – Online katalog butiků", category: "Luxury Retail", link: "https://flexagency.cz/work/art-de-suisse-katalog-pro-sit-butiku-luxusnich-hodinek-a-sperku/", image: "/projects/art-de-suisse.jpg", blurb: "Online katalog pro prémiový retail." },
+  { 
+    title: { 
+      cz: "Bieneberg – Web pro poskytovatele topenářských a instalatérských služeb", 
+      en: "Bieneberg – Website for heating and plumbing services provider" 
+    }, 
+    category: { cz: "Technické služby", en: "Technical Services" }, 
+    link: "https://flexagency.cz/work/bieneberg-web-pro-poskytovatele-topenarskych-a-instalaterskych-sluzeb/", 
+    image: "/projects/bieneberg.jpg", 
+    blurb: { 
+      cz: "Kompletní digitální prezentace – logotyp, identita a prezentační web.", 
+      en: "Complete digital presentation – logo, identity and presentation website." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Císařské lázně – Nový web pro kulturní a návštěvní prostor", 
+      en: "Císařské lázně – New website for cultural and visitor space" 
+    }, 
+    category: { cz: "Veřejný sektor", en: "Public Sector" }, 
+    link: "https://flexagency.cz/work/cisarske-lazne-novy-web-pro-kulturni-a-navstevni-prostor-v-karlovych-varech/", 
+    image: "/projects/cisarske-lazne.jpg", 
+    blurb: { 
+      cz: "Informačně bohatý web reflektující novou identitu objektu.", 
+      en: "Information-rich website reflecting the new identity of the building." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Carlsbad Reality – Modernizace webu pro developera", 
+      en: "Carlsbad Reality – Website modernization for developer" 
+    }, 
+    category: { cz: "Real Estate", en: "Real Estate" }, 
+    link: "https://flexagency.cz/work/carlsbad-reality-modernizace-webu-pro-realitni-developera/", 
+    image: "/projects/carlsbad-reality.jpg", 
+    blurb: { 
+      cz: "Moderní web s filtrem a mapovými cenami.", 
+      en: "Modern website with filters and map pricing." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Institut lázeňství a balneologie – Redesign", 
+      en: "Institute of Spa and Balneology – Redesign" 
+    }, 
+    category: { cz: "Výzkum", en: "Research" }, 
+    link: "https://flexagency.cz/work/institut-lazenstvi-a-balneologie-redesign-webu-pro-verejnou-vyzkumnou-instituci/", 
+    image: "/projects/i-lab.jpg", 
+    blurb: { 
+      cz: "Vícejazyčný web pro veřejnou instituci.", 
+      en: "Multilingual website for public institution." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "JASLEIN s.r.o. – Identita a web", 
+      en: "JASLEIN s.r.o. – Identity and website" 
+    }, 
+    category: { cz: "Doprava", en: "Transportation" }, 
+    link: "https://flexagency.cz/work/jaslein-s-r-o-kompletni-vizualni-identita-a-prezentacni-web-pro-dopravni-spolecnost/", 
+    image: "/projects/jaslein.jpg", 
+    blurb: { 
+      cz: "Logo, identita a prezentační web s náborem.", 
+      en: "Logo, identity and presentation website with recruitment." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Sansei Royal Thai Massage – Nový web", 
+      en: "Sansei Royal Thai Massage – New website" 
+    }, 
+    category: { cz: "Wellness", en: "Wellness" }, 
+    link: "https://flexagency.cz/work/sansei-royal-thai-massage-novy-web-pro-thajsky-masazni-salon/", 
+    image: "/projects/sansei.jpg", 
+    blurb: { 
+      cz: "Elegantní a funkční web pro prémiové služby.", 
+      en: "Elegant and functional website for premium services." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Pohyb jsou lázně – EMS 2025", 
+      en: "Movement is Spa – EMS 2025" 
+    }, 
+    category: { cz: "Veřejný sektor", en: "Public Sector" }, 
+    link: "https://flexagency.cz/work/web-pohyb-jsou-lazne/", 
+    image: "/projects/pohyb-jsou-lazne.jpg", 
+    blurb: { 
+      cz: "Dynamický landing page pro město Karlovy Vary.", 
+      en: "Dynamic landing page for Karlovy Vary city." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Villa Julius – Web a identita", 
+      en: "Villa Julius – Website and identity" 
+    }, 
+    category: { cz: "Hospitality", en: "Hospitality" }, 
+    link: "https://flexagency.cz/work/webove-stranky-a-vizualni-identita-pro-villa-julius/", 
+    image: "/projects/villa-julius.jpg", 
+    blurb: { 
+      cz: "Kompletní vizuální identita a vícejazyčný web.", 
+      en: "Complete visual identity and multilingual website." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Karlovarská sůl – Nový vizuální styl a web", 
+      en: "Karlovy Vary Salt – New visual style and website" 
+    }, 
+    category: { cz: "FMCG", en: "FMCG" }, 
+    link: "https://flexagency.cz/work/karlovarska-sul-novy-vizualni-styl-a-web-pro-tradicni-cesky-produkt/", 
+    image: "/projects/karlovarska-sul.jpg", 
+    blurb: { 
+      cz: "Rebranding tradiční značky a nový web.", 
+      en: "Rebranding of traditional brand and new website." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Art de Suisse – Online katalog butiků", 
+      en: "Art de Suisse – Online boutique catalog" 
+    }, 
+    category: { cz: "Luxury Retail", en: "Luxury Retail" }, 
+    link: "https://flexagency.cz/work/art-de-suisse-katalog-pro-sit-butiku-luxusnich-hodinek-a-sperku/", 
+    image: "/projects/art-de-suisse.jpg", 
+    blurb: { 
+      cz: "Online katalog pro prémiový retail.", 
+      en: "Online catalog for premium retail." 
+    } 
+  },
 ];
 
-const categories = ["All", "Real Estate", "Luxury Retail", "Wellness", "Hospitality", "Veřejný sektor", "Výzkum", "Doprava", "FMCG", "Technické služby"] as const;
+const categories = [
+  { cz: "All", en: "All" },
+  { cz: "Real Estate", en: "Real Estate" },
+  { cz: "Luxury Retail", en: "Luxury Retail" },
+  { cz: "Wellness", en: "Wellness" },
+  { cz: "Hospitality", en: "Hospitality" },
+  { cz: "Veřejný sektor", en: "Public Sector" },
+  { cz: "Výzkum", en: "Research" },
+  { cz: "Doprava", en: "Transportation" },
+  { cz: "FMCG", en: "FMCG" },
+  { cz: "Technické služby", en: "Technical Services" }
+] as const;
 
 type Category = typeof categories[number];
 
 const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
-  const [active, setActive] = React.useState<Category>("All");
-  const filtered = active === "All" ? featuredProjects : featuredProjects.filter(p => p.category === active);
+  const [active, setActive] = React.useState<Category>(categories[0]);
+  const filtered = active.cz === "All" ? featuredProjects : featuredProjects.filter(p => p.category[lang] === active[lang]);
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
         <GalleryVerticalEnd className="h-4 w-4"/>
         {categories.map((c) => (
-          <Button key={c} size="sm" variant={active === c ? "default" : "secondary"} onClick={() => setActive(c as Category)} className="rounded-2xl">
-            {c}
+          <Button key={c[lang]} size="sm" variant={active[lang] === c[lang] ? "default" : "secondary"} onClick={() => setActive(c)} className="rounded-2xl">
+            {c[lang]}
           </Button>
         ))}
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((p) => (
-          <Card key={p.title} className="group overflow-hidden border-muted/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20">
+          <Card key={p.title[lang]} className="group overflow-hidden border-muted/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20">
             <div className="aspect-[16/10] bg-muted/30 overflow-hidden relative">
-              <img src={p.image} alt={p.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" loading="lazy" />
+              <img src={p.image} alt={p.title[lang]} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <CardHeader>
-              <CardDescription className="text-xs uppercase tracking-wide group-hover:text-primary transition-colors duration-200">{p.category}</CardDescription>
-              <CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-200">{p.title}</CardTitle>
+              <CardDescription className="text-xs uppercase tracking-wide group-hover:text-primary transition-colors duration-200">{p.category[lang]}</CardDescription>
+              <CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-200">{p.title[lang]}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-3">{p.blurb}</p>
+              <p className="text-sm text-muted-foreground mb-3">{p.blurb[lang]}</p>
               <Button variant="link" asChild className="p-0 h-auto text-sm group-hover:text-primary transition-colors duration-200">
                 <a href={p.link} target="_blank" rel="noreferrer">{lang === 'cz' ? 'Zobrazit projekt' : 'View project'} →</a>
               </Button>
