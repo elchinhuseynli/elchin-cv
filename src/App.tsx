@@ -778,6 +778,14 @@ function ProfilePage() {
         </Card>
       </div>
 
+      {/* Experience */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold tracking-tight">{lang === "cz" ? "Praxe" : "Experience"}</h2>
+        {experience.map((exp) => (
+          <ExperienceItem key={exp.company} lang={lang} {...exp} />
+        ))}
+      </div>
+
       {/* Featured Projects */}
       <Card className="border-muted/40">
         <CardHeader>
@@ -788,14 +796,6 @@ function ProfilePage() {
           <FeaturedGrid lang={lang} />
         </CardContent>
       </Card>
-
-      {/* Experience */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">{lang === "cz" ? "Praxe" : "Experience"}</h2>
-        {experience.map((exp) => (
-          <ExperienceItem key={exp.company} lang={lang} {...exp} />
-        ))}
-      </div>
 
       {/* Languages */}
       <Card className="border-muted/40">
