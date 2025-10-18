@@ -289,6 +289,15 @@ const CVGenerator: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
           padding: 4px 12px;
           border-radius: 20px;
           font-size: 0.9rem;
+          transition: all 0.3s ease-in-out;
+          cursor: pointer;
+          display: inline-block;
+        }
+        .skill-tag:hover {
+          background: #1f2937;
+          color: white;
+          transform: scale(1.05) translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         .languages {
           display: flex;

@@ -247,9 +247,13 @@ const SectionTitle: React.FC<{ icon?: React.ReactNode; children: React.ReactNode
 const PillList: React.FC<{ items: string[]; withLogos?: boolean }> = ({ items, withLogos }) => (
   <div className="flex flex-wrap gap-2">
     {items.map((t) => (
-      <Badge key={t} variant="secondary" className="rounded-2xl px-3 py-1 text-sm flex items-center gap-1">
+      <Badge 
+        key={t} 
+        variant="secondary" 
+        className="rounded-2xl px-3 py-1 text-sm flex items-center gap-1 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 cursor-pointer group"
+      >
         {withLogos && <SkillLogo name={t} />}
-        <span>{t}</span>
+        <span className="group-hover:font-medium transition-all duration-300">{t}</span>
       </Badge>
     ))}
   </div>
@@ -474,8 +478,13 @@ function ProfilePage() {
         <CardContent>
           <div className="flex flex-wrap gap-3">
             {profile.languages.map((l) => (
-              <Badge key={l.label} variant="outline" className="rounded-2xl px-3 py-1 text-sm">
-                <span className="mr-1">{l.flag}</span>{l.label} · {l.level}
+              <Badge 
+                key={l.label} 
+                variant="outline" 
+                className="rounded-2xl px-3 py-1 text-sm transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-md hover:bg-primary hover:text-primary-foreground hover:border-primary hover:-translate-y-0.5 cursor-pointer group"
+              >
+                <span className="mr-1 group-hover:scale-110 transition-transform duration-300">{l.flag}</span>
+                <span className="group-hover:font-medium transition-all duration-300">{l.label} · {l.level}</span>
               </Badge>
             ))}
           </div>
