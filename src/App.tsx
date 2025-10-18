@@ -32,27 +32,26 @@ function useTheme() {
 
 // Global language state (CZ / EN) with persistence and auto-detection
 function useLang() {
-  const [lang, setLang] = React.useState<"cz" | "en">("en"); // Default to English
-  
-  // Load saved preference on mount first, then auto-detect if no saved preference
-  React.useEffect(() => {
-    const saved = localStorage.getItem("lang");
-    if (saved === 'cz' || saved === 'en') {
-      setLang(saved);
-    } else {
-      // Only auto-detect if no saved preference
+  // Initialize with saved preference or default to English
+  const [lang, setLang] = React.useState<"cz" | "en">(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem("lang");
+      if (saved === 'cz' || saved === 'en') {
+        return saved;
+      }
+      // Auto-detect browser language only if no saved preference
       const browserLang = navigator.language.toLowerCase();
       if (browserLang.startsWith('cs') || browserLang.startsWith('cz')) {
-        setLang('cz');
-      } else {
-        setLang('en'); // Default to English
+        return 'cz';
       }
     }
-  }, []);
+    return 'en'; // Default to English
+  });
   
   React.useEffect(() => {
     localStorage.setItem("lang", lang);
   }, [lang]);
+  
   return { lang, setLang } as const;
 }
 
@@ -109,6 +108,7 @@ const experience = [
     dates: "2024 – present",
     bullets: {
       cz: [
+        "Působím jako senior webový vývojář a designér v rámci projektového týmu zaměřeného na digitalizaci a virtualizaci IT prostředí a vývoj moderních webových aplikací pro akademické a výzkumné účely.",
         "Vývoj responzivních a uživatelsky přívětivých webových stránek a aplikací s důrazem na výkon, přístupnost a bezpečnost.",
         "Odborná realizace a podpora aktivit zaměřených na virtualizaci IT prostředí, včetně návrhu, implementace a testování řešení.",
         "Návrh a realizace architektury virtualizovaného prostředí pro provoz webových služeb a datových výstupů.",
@@ -121,6 +121,7 @@ const experience = [
         "Grafická podpora pro projektový tým – návrh prezentačních šablon, pozvánek a interních materiálů.",
       ],
       en: [
+        "I work as a senior web developer and designer within a project team focused on digitalization and virtualization of IT environment and development of modern web applications for academic and research purposes.",
         "Development of responsive and user-friendly websites and applications with emphasis on performance, accessibility and security.",
         "Professional implementation and support of activities focused on IT environment virtualization, including design, implementation and testing of solutions.",
         "Design and implementation of virtualized environment architecture for web services and data outputs.",
@@ -145,6 +146,8 @@ const experience = [
     dates: "2020 – present",
     bullets: {
       cz: [
+        "Jsem zakladatelem a vedoucím designérem digitální agentury Flex Digital Agency, která se specializuje na komplexní webová řešení, vizuální identitu a digitální marketing.",
+        "Vedu projekty od strategie a konceptu až po jejich realizaci a dlouhodobou správu – od návrhu firemních webů, e-shopů a brand identit až po online kampaně a automatizaci procesů.",
         "Kompletní řízení a rozvoj agentury, včetně strategického a finančního plánování.",
         "Návrh vizuálních identit a brand manuálů pro české i mezinárodní klienty.",
         "Tvorba moderních webů a e‑shopů na platformách WordPress, Webflow, Next.js a dalších.",
@@ -158,6 +161,8 @@ const experience = [
         "Dlouhodobá údržba webů, optimalizace výkonu, bezpečnostní dohled a UX vylepšení.",
       ],
       en: [
+        "I am the founder and lead designer of Flex Digital Agency, which specializes in comprehensive web solutions, visual identity and digital marketing.",
+        "I lead projects from strategy and concept to their implementation and long-term management – from corporate websites, e-shops and brand identities to online campaigns and process automation.",
         "Complete agency management and development, including strategic and financial planning.",
         "Design of visual identities and brand manuals for Czech and international clients.",
         "Creation of modern websites and e‑shops on WordPress, Webflow, Next.js and other platforms.",
@@ -183,6 +188,7 @@ const experience = [
     dates: "2021 – 2024",
     bullets: {
       cz: [
+        "V rámci skupiny SUAS Group, která sdružuje dceřiné společnosti působící v oblasti energetiky, stavebnictví a rozvoje regionu Sokolovska, zodpovídám za tvorbu a rozvoj vizuální komunikace celé skupiny i jednotlivých subjektů.",
         "Návrh a realizace nové korporátní identity pro nově vzniklé dceřiné společnosti.",
         "Tvorba komplexních grafických materiálů — billboardy, tiskové a digitální bannery, pozvánky, logotypy, logomanuály, brožury, katalogy, letáky, zpravodaje a magazíny.",
         "Spolupráce s externími dodavateli při výrobě tiskovin a propagačních materiálů.",
@@ -194,6 +200,7 @@ const experience = [
         "Spolupráce s vedením skupiny na rozvoji marketingové a komunikační strategie.",
       ],
       en: [
+        "Within SUAS Group, which brings together subsidiaries operating in energy, construction and development of the Sokolov region, I am responsible for creating and developing visual communication for the entire group and individual entities.",
         "Design and implementation of new corporate identity for newly established subsidiaries.",
         "Creation of comprehensive graphic materials — billboards, print and digital banners, invitations, logos, logo manuals, brochures, catalogs, flyers, newsletters and magazines.",
         "Cooperation with external suppliers in the production of printed materials and promotional materials.",
@@ -217,6 +224,8 @@ const experience = [
     dates: "2014 – 2021",
     bullets: {
       cz: [
+        "V rámci společnosti Art de Suisse, která se specializuje na luxusní hodinky, šperky a umělecké předměty, jsem vedl marketingové a komunikační aktivity značky v České republice i zahraničí.",
+        "Zastával jsem klíčovou roli při rozvoji brand identity, koordinaci kampaní a tvorbě exkluzivního obsahu pro prémiový segment zákazníků.",
         "Vedení marketingového týmu a zajištění strategického směřování značky.",
         "Vytváření a implementace marketingových plánů pro online i offline kanály.",
         "Organizace a vizuální koordinace eventů, privátních výstav a VIP prezentací.",
@@ -227,6 +236,8 @@ const experience = [
         "Komunikace s vedením společnosti, reporting výsledků a návrhy na optimalizaci marketingové strategie.",
       ],
       en: [
+        "Within Art de Suisse, specializing in luxury watches, jewelry and art objects, I led marketing and communication activities of the brand in the Czech Republic and abroad.",
+        "I played a key role in brand identity development, campaign coordination and creation of exclusive content for premium customer segment.",
         "Leading the marketing team and ensuring strategic direction of the brand.",
         "Creating and implementing marketing plans for online and offline channels.",
         "Organization and visual coordination of events, private exhibitions and VIP presentations.",
@@ -628,8 +639,8 @@ function ProfilePage() {
         <div className="flex items-center gap-2">
           <Tabs defaultValue={lang} value={lang} onValueChange={(v) => setLang(v as any)}>
             <TabsList>
-              <TabsTrigger value="cz">🇨🇿 CZ</TabsTrigger>
               <TabsTrigger value="en">🇬🇧 EN</TabsTrigger>
+              <TabsTrigger value="cz">🇨🇿 CZ</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
