@@ -851,6 +851,9 @@ function ProfilePage() {
                   <span className={`absolute top-1/3 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
                     isMobileMenuOpen ? 'rotate-45 translate-y-1' : 'rotate-0'
                   }`}></span>
+                  <span className={`absolute top-1/2 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}></span>
                   <span className={`absolute top-2/3 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
                     isMobileMenuOpen ? '-rotate-45 -translate-y-1' : 'rotate-0'
                   }`}></span>
@@ -895,7 +898,7 @@ function ProfilePage() {
                   
                   {/* Mobile Controls */}
                   <div 
-                    className="flex items-center justify-between pt-4 border-t border-muted/40"
+                    className="flex items-center justify-between pt-4 px-6 border-t border-muted/40"
                     style={{
                       animationDelay: '400ms',
                       animation: isMobileMenuOpen ? `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 400ms both` : 'none'
