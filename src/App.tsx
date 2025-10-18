@@ -7,13 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
-import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTool, Rocket, Languages, Building2, Sun, Moon, GalleryVerticalEnd } from "lucide-react";
+import { Mail, Phone, MapPin, Globe, Linkedin, Download, Briefcase, Code2, PenTool, Languages, Sun, Moon, GalleryVerticalEnd, GraduationCap, Award } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import CVPage from "@/pages/CVPage";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination';
+import { cvData } from "./data/cvData";
 
 // --- THEME / LANG PROVIDER (persisted) ---------------------------------------
 function useTheme() {
@@ -87,6 +87,40 @@ const profile = {
     { label: "Czech", level: "Professional Working", flag: "🇨🇿" },
   ],
 };
+
+const education = [
+  {
+    institution: {
+      en: "Azerbaijan State Oil Academy",
+      cz: "Ázerbájdžánská státní ropná akademie",
+    },
+    degree: {
+      en: "Bachelor of Business Administration",
+      cz: "Bakalář obchodní administrativy",
+    },
+    dates: "2005 – 2009",
+    location: "Baku, Azerbaijan",
+  },
+
+];
+
+const certifications = [
+  {
+    name: {
+      en: "Webflow Certification",
+      cz: "Webflow Certifikace",
+    },
+    issuer: "Webflow",
+    date: "2025",
+    credentialId: "c516f1bc-d16f-47f9-ad5c-084a7e325688",
+    url: "https://www.credential.net/c516f1bc-d16f-47f9-ad5c-084a7e325688#acc.zwbnRdVC",
+    badge: "/wf-certificate.png",
+    description: {
+      en: "Certified Webflow Developer - Proud to Build The Webflow Way",
+      cz: "Certifikovaný Webflow vývojář - Hrdě stavím Webflow způsobem",
+    },
+  },
+];
 
 const about = {
   cz: `Jsem zakladatel a vedoucí designér digitální agentury Flex Digital Agency, kde propojuji kreativitu s technologií. Zaměřuji se na tvorbu moderních webových stránek, vizuálních identit a digitálních strategií, které pomáhají firmám růst a zviditelnit se v online prostoru. Mám více než 10 let zkušeností v oblasti grafického designu, vývoje a marketingu. Zajímám se o automatizaci, nové technologie a UX trendy; cílem jsou řešení, která nejen skvěle vypadají, ale i fungují.`,
@@ -404,14 +438,13 @@ const PillList: React.FC<{ items: string[]; withLogos?: boolean }> = ({ items, w
 
 const ExperienceItem: React.FC<{
   company: string;
-  logo?: string | null;
-  location: string;
-  roles: { cz: string; en: string };
+  role: string;
   dates: string;
+  logo: string | null;
   description: { cz: string; en: string };
   bullets: { cz: string[]; en: string[] };
   lang: "cz" | "en";
-}> = ({ company, logo, location, roles, dates, description, bullets, lang }) => {
+}> = ({ company, role, dates, logo, description, bullets, lang }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   
   // Generate company initials for placeholder
@@ -427,180 +460,89 @@ const ExperienceItem: React.FC<{
   const hasMoreContent = bullets[lang].length > 0;
 
   return (
-    <Card className="border-muted/40">
-      <CardHeader>
-        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted/30 flex items-center justify-center">
+    <div className="relative flex items-start gap-6">
+      {/* Timeline Dot */}
+      <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary ring-4 ring-background">
+        <div className="h-2 w-2 rounded-full bg-primary-foreground"></div>
+      </div>
+      
+      {/* Timeline Content */}
+      <div className="flex-1 min-w-0">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2 mb-3">
+          <div className="flex items-start gap-3">
+            {/* Company Logo */}
+            <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted/30 flex items-center justify-center flex-shrink-0">
               {logo ? (
                 <img 
                   src={logo} 
-                  alt={`${company} logo`} 
-                  className="w-full h-full object-contain"
+                  alt={company} 
+                  className="w-full h-full object-contain p-1"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    // Fallback to company initials if logo fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = `<div class="text-xs font-semibold text-muted-foreground">${getCompanyInitials(company)}</div>`;
+                    }
                   }}
                 />
-              ) : null}
-              <div className={`w-full h-full flex items-center justify-center text-xs font-semibold text-muted-foreground ${logo ? 'hidden' : ''}`}>
-                {getCompanyInitials(company)}
-              </div>
+              ) : (
+                <div className="text-xs font-semibold text-muted-foreground">
+                  {getCompanyInitials(company)}
+                </div>
+              )}
             </div>
+            
             <div>
-              <CardTitle className="text-lg">{company}</CardTitle>
-              <CardDescription className="flex items-center gap-2 mt-1 text-sm"><Building2 className="h-4 w-4" />{location}</CardDescription>
+              <h3 className="text-lg font-semibold">{role}</h3>
+              <p className="text-sm text-muted-foreground">{company}</p>
             </div>
           </div>
-          <div className="text-sm text-muted-foreground">{dates}</div>
+          
+          <div className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full inline-block w-fit">
+            {dates}
+          </div>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="font-medium mb-3">{roles[lang]}</div>
         
-        {/* Description as paragraph */}
-        <div className="mb-4">
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {description[lang]}
-          </p>
-        </div>
-
-        {/* Bullet points with expand/collapse */}
+        {/* Description */}
+        <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+          {description[lang]}
+        </p>
+        
+        {/* Show/Hide Activities Button */}
         {hasMoreContent && (
           <>
-            {isExpanded && (
-              <ul className="list-disc pl-5 space-y-1 text-sm mb-3">
-                {bullets[lang].map((bullet, index) => (
-                  <li key={index}>{bullet}</li>
-                ))}
-              </ul>
-            )}
-            
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-primary hover:text-primary/80 p-0 h-auto font-normal"
+              className="text-primary hover:text-primary/80 p-0 h-auto font-normal mb-3"
             >
               {isExpanded 
                 ? (lang === "cz" ? "Skrýt aktivity" : "Hide activities") 
-                : (lang === "cz" ? "Hlavní aktivity a odpovědnosti" : "Main activities and responsibilities")
+                : (lang === "cz" ? "Hlavní aktivity a zodpovědnosti" : "Main activities and responsibilities")
               }
               <span className="ml-1">{isExpanded ? "↑" : "↓"}</span>
             </Button>
+            
+            {/* Bullet Points - Only show when expanded */}
+            {isExpanded && (
+              <ul className="list-disc pl-5 space-y-1 text-sm">
+                {bullets[lang].map((bullet, bulletIndex) => (
+                  <li key={bulletIndex}>{bullet}</li>
+                ))}
+              </ul>
+            )}
           </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
 // --- FEATURED PROJECTS -------------------------------------------------------
 const featuredProjects = [
-  { 
-    title: { 
-      cz: "Bieneberg – Web pro poskytovatele topenářských a instalatérských služeb", 
-      en: "Bieneberg – Website for heating and plumbing services provider" 
-    }, 
-    category: { cz: "Technické služby", en: "Technical Services" }, 
-    link: "https://flexagency.cz/work/bieneberg-web-pro-poskytovatele-topenarskych-a-instalaterskych-sluzeb/", 
-    image: "/projects/bieneberg.jpg", 
-    blurb: { 
-      cz: "Kompletní digitální prezentace – logotyp, identita a prezentační web.", 
-      en: "Complete digital presentation – logo, identity and presentation website." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "Císařské lázně – Nový web pro kulturní a návštěvní prostor", 
-      en: "Císařské lázně – New website for cultural and visitor space" 
-    }, 
-    category: { cz: "Veřejný sektor", en: "Public Sector" }, 
-    link: "https://flexagency.cz/work/cisarske-lazne-novy-web-pro-kulturni-a-navstevni-prostor-v-karlovych-varech/", 
-    image: "/projects/cisarske-lazne.jpg", 
-    blurb: { 
-      cz: "Informačně bohatý web reflektující novou identitu objektu.", 
-      en: "Information-rich website reflecting the new identity of the building." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "Carlsbad Reality – Modernizace webu pro developera", 
-      en: "Carlsbad Reality – Website modernization for developer" 
-    }, 
-    category: { cz: "Real Estate", en: "Real Estate" }, 
-    link: "https://flexagency.cz/work/carlsbad-reality-modernizace-webu-pro-realitni-developera/", 
-    image: "/projects/carlsbad-reality.jpg", 
-    blurb: { 
-      cz: "Moderní web s filtrem a mapovými cenami.", 
-      en: "Modern website with filters and map pricing." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "Institut lázeňství a balneologie – Redesign", 
-      en: "Institute of Spa and Balneology – Redesign" 
-    }, 
-    category: { cz: "Výzkum", en: "Research" }, 
-    link: "https://flexagency.cz/work/institut-lazenstvi-a-balneologie-redesign-webu-pro-verejnou-vyzkumnou-instituci/", 
-    image: "/projects/i-lab.jpg", 
-    blurb: { 
-      cz: "Vícejazyčný web pro veřejnou instituci.", 
-      en: "Multilingual website for public institution." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "JASLEIN s.r.o. – Identita a web", 
-      en: "JASLEIN s.r.o. – Identity and website" 
-    }, 
-    category: { cz: "Doprava", en: "Transportation" }, 
-    link: "https://flexagency.cz/work/jaslein-s-r-o-kompletni-vizualni-identita-a-prezentacni-web-pro-dopravni-spolecnost/", 
-    image: "/projects/jaslein.jpg", 
-    blurb: { 
-      cz: "Logo, identita a prezentační web s náborem.", 
-      en: "Logo, identity and presentation website with recruitment." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "Sansei Royal Thai Massage – Nový web", 
-      en: "Sansei Royal Thai Massage – New website" 
-    }, 
-    category: { cz: "Wellness", en: "Wellness" }, 
-    link: "https://flexagency.cz/work/sansei-royal-thai-massage-novy-web-pro-thajsky-masazni-salon/", 
-    image: "/projects/sansei.jpg", 
-    blurb: { 
-      cz: "Elegantní a funkční web pro prémiové služby.", 
-      en: "Elegant and functional website for premium services." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "Pohyb jsou lázně – EMS 2025", 
-      en: "Movement is Spa – EMS 2025" 
-    }, 
-    category: { cz: "Veřejný sektor", en: "Public Sector" }, 
-    link: "https://flexagency.cz/work/web-pohyb-jsou-lazne/", 
-    image: "/projects/pohyb-jsou-lazne.jpg", 
-    blurb: { 
-      cz: "Dynamický landing page pro město Karlovy Vary.", 
-      en: "Dynamic landing page for Karlovy Vary city." 
-    } 
-  },
-  { 
-    title: { 
-      cz: "Villa Julius – Web a identita", 
-      en: "Villa Julius – Website and identity" 
-    }, 
-    category: { cz: "Hospitality", en: "Hospitality" }, 
-    link: "https://flexagency.cz/work/webove-stranky-a-vizualni-identita-pro-villa-julius/", 
-    image: "/projects/villa-julius.jpg", 
-    blurb: { 
-      cz: "Kompletní vizuální identita a vícejazyčný web.", 
-      en: "Complete visual identity and multilingual website." 
-    } 
-  },
   { 
     title: { 
       cz: "Karlovarská sůl – Nový vizuální styl a web", 
@@ -627,10 +569,118 @@ const featuredProjects = [
       en: "Online catalog for premium retail." 
     } 
   },
+  { 
+    title: { 
+      cz: "Sansei Royal Thai Massage – Nový web", 
+      en: "Sansei Royal Thai Massage – New website" 
+    }, 
+    category: { cz: "Wellness", en: "Wellness" }, 
+    link: "https://flexagency.cz/work/sansei-royal-thai-massage-novy-web-pro-thajsky-masazni-salon/", 
+    image: "/projects/sansei.jpg", 
+    blurb: { 
+      cz: "Elegantní a funkční web pro prémiové služby.", 
+      en: "Elegant and functional website for premium services." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Villa Julius – Web a identita", 
+      en: "Villa Julius – Website and identity" 
+    }, 
+    category: { cz: "Hospitality", en: "Hospitality" }, 
+    link: "https://flexagency.cz/work/webove-stranky-a-vizualni-identita-pro-villa-julius/", 
+    image: "/projects/villa-julius.jpg", 
+    blurb: { 
+      cz: "Kompletní vizuální identita a vícejazyčný web.", 
+      en: "Complete visual identity and multilingual website." 
+    } 
+  },
+
+  { 
+    title: { 
+      cz: "Císařské lázně – Nový web pro kulturní a návštěvní prostor", 
+      en: "Císařské lázně – New website for cultural and visitor space" 
+    }, 
+    category: { cz: "Veřejný sektor", en: "Public Sector" }, 
+    link: "https://flexagency.cz/work/cisarske-lazne-novy-web-pro-kulturni-a-navstevni-prostor-v-karlovych-varech/", 
+    image: "/projects/cisarske-lazne.jpg", 
+    blurb: { 
+      cz: "Informačně bohatý web reflektující novou identitu objektu.", 
+      en: "Information-rich website reflecting the new identity of the building." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Pohyb jsou lázně – EMS 2025", 
+      en: "Movement is Spa – EMS 2025" 
+    }, 
+    category: { cz: "Veřejný sektor", en: "Public Sector" }, 
+    link: "https://flexagency.cz/work/web-pohyb-jsou-lazne/", 
+    image: "/projects/pohyb-jsou-lazne.jpg", 
+    blurb: { 
+      cz: "Dynamický landing page pro město Karlovy Vary.", 
+      en: "Dynamic landing page for Karlovy Vary city." 
+    } 
+  },
+
+  { 
+    title: { 
+      cz: "Carlsbad Reality – Modernizace webu pro developera", 
+      en: "Carlsbad Reality – Website modernization for developer" 
+    }, 
+    category: { cz: "Real Estate", en: "Real Estate" }, 
+    link: "https://flexagency.cz/work/carlsbad-reality-modernizace-webu-pro-realitni-developera/", 
+    image: "/projects/carlsbad-reality.jpg", 
+    blurb: { 
+      cz: "Moderní web s filtrem a mapovými cenami.", 
+      en: "Modern website with filters and map pricing." 
+    } 
+  },
+  { 
+    title: { 
+      cz: "Institut lázeňství a balneologie – Redesign", 
+      en: "Institute of Spa and Balneology – Redesign" 
+    }, 
+    category: { cz: "Výzkum", en: "Research" }, 
+    link: "https://flexagency.cz/work/institut-lazenstvi-a-balneologie-redesign-webu-pro-verejnou-vyzkumnou-instituci/", 
+    image: "/projects/i-lab.jpg", 
+    blurb: { 
+      cz: "Vícejazyčný web pro veřejnou instituci.", 
+      en: "Multilingual website for public institution." 
+    } 
+  },
+  // { 
+  //   title: { 
+  //     cz: "JASLEIN s.r.o. – Identita a web", 
+  //     en: "JASLEIN s.r.o. – Identity and website" 
+  //   }, 
+  //   category: { cz: "Doprava", en: "Transportation" }, 
+  //   link: "https://flexagency.cz/work/jaslein-s-r-o-kompletni-vizualni-identita-a-prezentacni-web-pro-dopravni-spolecnost/", 
+  //   image: "/projects/jaslein.jpg", 
+  //   blurb: { 
+  //     cz: "Logo, identita a prezentační web s náborem.", 
+  //     en: "Logo, identity and presentation website with recruitment." 
+  //   } 
+  // },
+
+
+  { 
+    title: { 
+      cz: "Bieneberg – Web pro poskytovatele topenářských a instalatérských služeb", 
+      en: "Bieneberg – Website for heating and plumbing services provider" 
+    }, 
+    category: { cz: "Technické služby", en: "Technical Services" }, 
+    link: "https://flexagency.cz/work/bieneberg-web-pro-poskytovatele-topenarskych-a-instalaterskych-sluzeb/", 
+    image: "/projects/bieneberg.jpg", 
+    blurb: { 
+      cz: "Kompletní digitální prezentace – logotyp, identita a prezentační web.", 
+      en: "Complete digital presentation – logo, identity and presentation website." 
+    } 
+  },
 ];
 
 const categories = [
-  { cz: "All", en: "All" },
+  { cz: "Všechny", en: "All" },
   { cz: "Real Estate", en: "Real Estate" },
   { cz: "Luxury Retail", en: "Luxury Retail" },
   { cz: "Wellness", en: "Wellness" },
@@ -646,7 +696,7 @@ type Category = typeof categories[number];
 
 const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
   const [active, setActive] = React.useState<Category>(categories[0]);
-  const filtered = active.cz === "All" ? featuredProjects : featuredProjects.filter(p => p.category[lang] === active[lang]);
+  const filtered = active[lang] === (lang === "cz" ? "Všechny" : "All") ? featuredProjects : featuredProjects.filter(p => p.category[lang] === active[lang]);
   
   const ProjectCard: React.FC<{ project: typeof featuredProjects[0] }> = ({ project }) => (
     <Card className="group overflow-hidden border-muted/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20">
@@ -709,25 +759,179 @@ const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
 function ProfilePage() {
   const { isDark, setIsDark } = useTheme();
   const { lang, setLang } = useLang();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <div className="mx-auto max-w-6xl p-6 space-y-6">
-      {/* Global Controls */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Tabs defaultValue={lang} value={lang} onValueChange={(v) => setLang(v as any)}>
-            <TabsList>
-              <TabsTrigger value="en">🇬🇧 EN</TabsTrigger>
-              <TabsTrigger value="cz">🇨🇿 CZ</TabsTrigger>
-            </TabsList>
-          </Tabs>
+      {/* Navbar */}
+      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-muted/40">
+        <div className="flex items-center justify-between py-4">
+          {/* Logo/Brand */}
+          <div className="flex items-center gap-3">
+            <img 
+              src="/elchin photo-cut.png" 
+              alt="Elchin Huseynli" 
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <div className="font-semibold text-lg">Elchin Huseynli</div>
+          </div>
+
+          {/* Desktop Navigation & Controls */}
+          <div className="hidden md:flex items-center gap-6">
+            <button 
+              onClick={() => scrollToSection('about')}
+              className="text-sm hover:text-primary transition-colors"
+            >
+              {lang === "cz" ? "O mně" : "About"}
+            </button>
+            <button 
+              onClick={() => scrollToSection('services')}
+              className="text-sm hover:text-primary transition-colors"
+            >
+              {lang === "cz" ? "Služby" : "Services"}
+            </button>
+            <button 
+              onClick={() => scrollToSection('experience')}
+              className="text-sm hover:text-primary transition-colors"
+            >
+              {lang === "cz" ? "Zkušenosti" : "Experience"}
+            </button>
+            <button 
+              onClick={() => scrollToSection('projects')}
+              className="text-sm hover:text-primary transition-colors"
+            >
+              {lang === "cz" ? "Projekty" : "Projects"}
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="text-sm hover:text-primary transition-colors"
+            >
+              {lang === "cz" ? "Kontakt" : "Contact"}
+            </button>
+            
+            {/* Language Switcher */}
+            <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
+              <TabsList className="h-8">
+                <TabsTrigger value="en" className="text-xs px-2">EN</TabsTrigger>
+                <TabsTrigger value="cz" className="text-xs px-2">CZ</TabsTrigger>
+              </TabsList>
+            </Tabs>
+            
+            {/* Theme Switcher */}
+            <div className="flex items-center gap-1">
+              <Sun className="h-4 w-4" />
+              <Switch checked={isDark} onCheckedChange={setIsDark} className="scale-75" />
+              <Moon className="h-4 w-4" />
+            </div>
+            
+            {/* Download CV Button */}
+            <Button 
+              onClick={() => window.open(`/cv-page?lang=${lang}`, '_blank')}
+              size="sm"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              {lang === "cz" ? "CV" : "CV"}
+            </Button>
+          </div>
+
+              {/* Mobile Menu Button */}
+              <button 
+                className="md:hidden p-2 mobile-menu-button rounded-lg hover:bg-muted/50 transition-all duration-300"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                <div className="relative w-6 h-6">
+                  <span className={`absolute top-1/3 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    isMobileMenuOpen ? 'rotate-45 translate-y-1' : 'rotate-0'
+                  }`}></span>
+                  <span className={`absolute top-2/3 left-1/2 w-5 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+                    isMobileMenuOpen ? '-rotate-45 -translate-y-1' : 'rotate-0'
+                  }`}></span>
+                </div>
+              </button>
         </div>
-        <div className="flex items-center gap-2">
-          <Sun className="h-4 w-4" />
-          <Switch checked={isDark} onCheckedChange={setIsDark} />
-          <Moon className="h-4 w-4" />
-        </div>
-      </div>
+
+            {/* Mobile Navigation */}
+            <div className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden mobile-menu-container ${
+              isMobileMenuOpen 
+                ? 'max-h-screen opacity-100' 
+                : 'max-h-0 opacity-0'
+            }`}>
+              <div className="border-t border-muted/40 py-4 backdrop-blur-md bg-background/80">
+                <div className="space-y-4">
+                  {/* Mobile Navigation Links */}
+                  <div className="flex flex-col gap-2">
+                    {[
+                      { id: 'about', label: { cz: 'O mně', en: 'About' } },
+                      { id: 'services', label: { cz: 'Služby', en: 'Services' } },
+                      { id: 'experience', label: { cz: 'Zkušenosti', en: 'Experience' } },
+                      { id: 'projects', label: { cz: 'Projekty', en: 'Projects' } },
+                      { id: 'contact', label: { cz: 'Kontakt', en: 'Contact' } }
+                    ].map((item, index) => (
+                      <button 
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        className="mobile-menu-item text-left text-sm hover:text-primary transition-all duration-300 py-3 px-4 rounded-lg hover:bg-primary/5 hover:translate-x-2 hover:scale-105 group relative overflow-hidden"
+                        style={{
+                          animationDelay: `${index * 80}ms`,
+                          animation: isMobileMenuOpen ? `slideInLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${index * 80}ms both` : 'none'
+                        }}
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          <span className="w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                          {item.label[lang]}
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {/* Mobile Controls */}
+                  <div 
+                    className="flex items-center justify-between pt-4 border-t border-muted/40"
+                    style={{
+                      animationDelay: '400ms',
+                      animation: isMobileMenuOpen ? `fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) 400ms both` : 'none'
+                    }}
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* Language Switcher */}
+                      <Tabs value={lang} onValueChange={(v) => setLang(v as any)}>
+                        <TabsList className="h-8 hover:scale-105 transition-transform duration-200">
+                          <TabsTrigger value="en" className="text-xs px-2">EN</TabsTrigger>
+                          <TabsTrigger value="cz" className="text-xs px-2">CZ</TabsTrigger>
+                        </TabsList>
+                      </Tabs>
+                      
+                      {/* Theme Switcher */}
+                      <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200">
+                        <Sun className="h-4 w-4" />
+                        <Switch checked={isDark} onCheckedChange={setIsDark} className="scale-75" />
+                        <Moon className="h-4 w-4" />
+                      </div>
+                    </div>
+                    
+                    {/* Download CV Button */}
+                    <Button 
+                      onClick={() => window.open(`/cv-page?lang=${lang}`, '_blank')}
+                      size="sm"
+                      className="hover:scale-105 hover:shadow-lg transition-all duration-300 bg-primary hover:bg-primary/90"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      {lang === "cz" ? "CV" : "CV"}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </nav>
 
       {/* Header */}
       <Card className="overflow-hidden border-muted/40">
@@ -735,40 +939,27 @@ function ProfilePage() {
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
             <Avatar className="h-20 w-20 ring-2 ring-muted"><AvatarImage src="/elchin photo-cut.png" alt="Elchin" className="object-cover" /><AvatarFallback>EH</AvatarFallback></Avatar>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold tracking-tight">{profile.name[lang]}</h1>
-              <div className="mt-2 text-sm text-muted-foreground">{profile.headline[lang]}</div>
+              <h1 className="text-3xl font-bold tracking-tight">{cvData.profile.name[lang]}</h1>
+              <div className="mt-2 text-sm text-muted-foreground">{cvData.profile.headline[lang]}</div>
               <div className="flex flex-wrap gap-4 mt-4 text-sm">
-                <div className="flex items-center gap-2"><MapPin className="h-4 w-4" />{profile.location}</div>
-                <a className="flex items-center gap-2 hover:underline" href={`mailto:${profile.contacts.email}`}><Mail className="h-4 w-4" />{profile.contacts.email}</a>
-                <a className="flex items-center gap-2 hover:underline" href={`tel:${profile.contacts.phone}`}><Phone className="h-4 w-4" />{profile.contacts.phone}</a>
-                <a className="flex items-center gap-2 hover:underline" href={profile.contacts.site} target="_blank" rel="noreferrer"><Globe className="h-4 w-4" />flexagency.cz</a>
-                <a className="flex items-center gap-2 hover:underline" href={profile.contacts.linkedin} target="_blank" rel="noreferrer"><Linkedin className="h-4 w-4" />LinkedIn</a>
+                <div className="flex items-center gap-2"><MapPin className="h-4 w-4" />{cvData.profile.location}</div>
+                <a className="flex items-center gap-2 hover:underline" href={`mailto:${cvData.profile.contacts.email}`}><Mail className="h-4 w-4" />{cvData.profile.contacts.email}</a>
+                <a className="flex items-center gap-2 hover:underline" href={`tel:${cvData.profile.contacts.phone}`}><Phone className="h-4 w-4" />{cvData.profile.contacts.phone}</a>
+                <a className="flex items-center gap-2 hover:underline" href={cvData.profile.contacts.site} target="_blank" rel="noreferrer"><Globe className="h-4 w-4" />flexagency.cz</a>
+                <a className="flex items-center gap-2 hover:underline" href={cvData.profile.contacts.linkedin} target="_blank" rel="noreferrer"><Linkedin className="h-4 w-4" />LinkedIn</a>
               </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Button variant="secondary" asChild className="w-full sm:w-auto">
-                <a href="#services"><Rocket className="h-4 w-4 mr-2"/>{lang === "cz" ? "Služby" : "Services"}</a>
-              </Button>
-              <Button variant="outline" asChild className="w-full sm:w-auto">
-                <a href="https://flexagency.cz/nase-prace/" target="_blank" rel="noreferrer"><GalleryVerticalEnd className="h-4 w-4 mr-2"/>{lang === "cz" ? "Portfolio" : "Portfolio"}</a>
-              </Button>
-              <Button asChild className="w-full sm:w-auto">
-                <a href={`/cv-page?lang=${lang}`} target="_blank" rel="noreferrer">
-                  <Download className="h-4 w-4 mr-2"/>{lang === "cz" ? "Stáhnout CV" : "Download CV"}
-                </a>
-              </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* About */}
-      <Card className="border-muted/40">
+      <Card id="about" className="border-muted/40">
         <CardHeader>
           <SectionTitle icon={<PenTool className="h-5 w-5"/>}>{lang === "cz" ? "O mně" : "About"}</SectionTitle>
         </CardHeader>
         <CardContent>
-          <div className="mt-1 text-sm leading-7">{about[lang]}</div>
+          <div className="mt-1 text-sm leading-7">{cvData.about[lang]}</div>
         </CardContent>
       </Card>
 
@@ -779,7 +970,7 @@ function ProfilePage() {
           <CardDescription>{lang === "cz" ? "Hlavní nabídka pro klienty a partnery" : "Primary offerings for clients and partners"}</CardDescription>
         </CardHeader>
         <CardContent>
-          <PillList items={services} />
+          <PillList items={cvData.services} />
         </CardContent>
       </Card>
 
@@ -791,7 +982,7 @@ function ProfilePage() {
             <CardDescription>{lang === "cz" ? "Denní stack a specializace" : "Daily stack & specialties"}</CardDescription>
           </CardHeader>
           <CardContent>
-            <PillList items={skillsPrimary} withLogos />
+            <PillList items={cvData.skills} withLogos />
           </CardContent>
         </Card>
         <Card className="border-muted/40">
@@ -800,29 +991,31 @@ function ProfilePage() {
             <CardDescription>{lang === "cz" ? "Komunikace · Leadership · Analýza" : "Communication · Leadership · Analysis"}</CardDescription>
           </CardHeader>
           <CardContent>
-            <PillList items={[
-              lang === 'cz' ? 'Strategické a analytické myšlení' : 'Strategic & Analytical Thinking',
-              lang === 'cz' ? 'Leadership a koordinace týmu' : 'Leadership & Team Coordination',
-              lang === 'cz' ? 'Efektivní komunikace a prezentace' : 'Effective Communication & Presentation',
-              lang === 'cz' ? 'Kreativní řešení problémů' : 'Creative Problem Solving',
-              lang === 'cz' ? 'Detailní orientace a zodpovědnost' : 'Attention to Detail & Ownership',
-              lang === 'cz' ? 'Klientská komunikace a konzultace' : 'Client Communication & Consulting',
-              lang === 'cz' ? 'Systematické plánování a delivery' : 'Systematic Planning & Delivery',
-            ]} />
+            <PillList items={cvData.softSkills} />
           </CardContent>
         </Card>
       </div>
 
-      {/* Experience */}
-      <div className="space-y-4">
+      {/* Experience Timeline */}
+      <div id="experience" className="space-y-8">
         <h2 className="text-2xl font-bold tracking-tight">{lang === "cz" ? "Praxe" : "Experience"}</h2>
-        {experience.map((exp) => (
-          <ExperienceItem key={exp.company} lang={lang} {...exp} />
-        ))}
+        
+        {/* Timeline Container */}
+        <div className="relative">
+          {/* Timeline Line */}
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-muted"></div>
+          
+          {/* Timeline Items */}
+          <div className="space-y-8">
+            {cvData.experience.map((exp) => (
+              <ExperienceItem key={exp.company} lang={lang} {...exp} />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Featured Projects */}
-      <Card className="border-muted/40">
+      <Card id="projects" className="border-muted/40">
         <CardHeader>
           <SectionTitle icon={<GalleryVerticalEnd className="h-5 w-5"/>}>{lang === 'cz' ? 'Vybrané projekty' : 'Featured Projects'}</SectionTitle>
           <CardDescription>{lang === 'cz' ? 'Výběr prací z portfolia Flex Digital Agency' : 'Selected works from the Flex Digital Agency portfolio'}</CardDescription>
@@ -839,7 +1032,7 @@ function ProfilePage() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-3">
-            {profile.languages.map((l) => (
+            {cvData.profile.languages.map((l) => (
               <Badge 
                 key={l.label} 
                 variant="outline" 
@@ -853,8 +1046,65 @@ function ProfilePage() {
         </CardContent>
       </Card>
 
-      {/* Contact Form */}
+      {/* Education */}
       <Card className="border-muted/40">
+        <CardHeader>
+          <SectionTitle icon={<GraduationCap className="h-5 w-5"/>}>{lang === "cz" ? "Vzdělání" : "Education"}</SectionTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {cvData.education.map((edu, index) => (
+              <div key={index} className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
+                <div className="flex-1">
+                  <div className="font-semibold text-base">{edu.institution[lang]}</div>
+                  <div className="text-sm text-muted-foreground">{edu.degree[lang]}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{edu.location}</div>
+                </div>
+                <div className="text-sm text-muted-foreground">{edu.dates}</div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Certifications */}
+      <Card className="border-muted/40">
+        <CardHeader>
+          <SectionTitle icon={<Award className="h-5 w-5"/>}>{lang === "cz" ? "Certifikace" : "Certifications"}</SectionTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {cvData.certifications.map((cert, index) => (
+              <div key={index} className="flex items-start gap-4">
+                <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted/30 flex items-center justify-center flex-shrink-0">
+                  <img 
+                    src={cert.badge} 
+                    alt={cert.name[lang]} 
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="font-semibold text-base">{cert.name[lang]}</div>
+                  <div className="text-sm text-muted-foreground">{cert.issuer} · {cert.date}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{cert.description[lang]}</div>
+                  <a 
+                    href={cert.url} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-xs text-primary hover:underline mt-1 inline-block"
+                  >
+                    {lang === "cz" ? "Zobrazit certifikát" : "View Certificate"}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Contact Form */}
+      <Card id="contact" className="border-muted/40">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Mail className="h-5 w-5" />
