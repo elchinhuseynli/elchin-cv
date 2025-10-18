@@ -472,22 +472,27 @@ const ExperienceItem: React.FC<{
           <div className="flex items-start gap-3">
             {/* Company Logo */}
             <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted/30 flex items-center justify-center flex-shrink-0">
-              {logo ? (
-                <img 
-                  src={logo} 
-                  alt={company} 
-                  className="w-full h-full object-contain p-1"
-                  onError={(e) => {
-                    // Fallback to company initials if logo fails to load
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.innerHTML = `<div class="text-xs font-semibold text-muted-foreground">${getCompanyInitials(company)}</div>`;
-                    }
-                  }}
-                />
-              ) : (
+                  {logo ? (
+                    <img 
+                      src={logo.replace(/\.(jpg|jpeg|png)$/i, '.webp')} 
+                      alt={company} 
+                      className="w-full h-full object-contain p-1"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        // Try original format if WebP fails
+                        if (target.src.includes('.webp')) {
+                          target.src = logo;
+                        } else {
+                          // Fallback to company initials if logo fails to load
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = `<div class="text-xs font-semibold text-muted-foreground">${getCompanyInitials(company)}</div>`;
+                          }
+                        }
+                      }}
+                    />
+                  ) : (
                 <div className="text-xs font-semibold text-muted-foreground">
                   {getCompanyInitials(company)}
                 </div>
@@ -701,7 +706,16 @@ const FeaturedGrid: React.FC<{ lang: "cz" | "en" }> = ({ lang }) => {
   const ProjectCard: React.FC<{ project: typeof featuredProjects[0] }> = ({ project }) => (
     <Card className="group overflow-hidden border-muted/40 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/20">
       <div className="aspect-[16/10] bg-muted/30 overflow-hidden relative">
-        <img src={project.image} alt={project.title[lang]} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" loading="lazy" />
+        <img 
+          src={project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')} 
+          alt={project.title[lang]} 
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" 
+          loading="lazy"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = project.image;
+          }}
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       <CardHeader>
@@ -777,9 +791,13 @@ function ProfilePage() {
           {/* Logo/Brand */}
           <div className="flex items-center gap-3">
             <img 
-              src="/elchin photo-cut.png" 
+              src="/elchin photo-cut.webp" 
               alt="Elchin Huseynli" 
               className="w-10 h-10 rounded-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/elchin photo-cut.png";
+              }}
             />
             <div className="font-semibold text-lg">Elchin Huseynli</div>
           </div>
@@ -947,7 +965,18 @@ function ProfilePage() {
       <Card className="overflow-hidden border-muted/40">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-            <Avatar className="h-20 w-20 ring-2 ring-muted"><AvatarImage src="/elchin photo-cut.png" alt="Elchin" className="object-cover" /><AvatarFallback>EH</AvatarFallback></Avatar>
+            <Avatar className="h-20 w-20 ring-2 ring-muted">
+              <AvatarImage 
+                src="/elchin photo-cut.webp" 
+                alt="Elchin Huseynli" 
+                className="object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/elchin photo-cut.png";
+                }}
+              />
+              <AvatarFallback>EH</AvatarFallback>
+            </Avatar>
             <div className="flex-1">
               <h1 className="text-3xl font-bold tracking-tight">{cvData.profile.name[lang]}</h1>
               <div className="mt-2 text-sm text-muted-foreground">{cvData.profile.headline[lang]}</div>

@@ -209,7 +209,7 @@ const CVGenerator: React.FC<CVGeneratorProps> = ({ lang }) => {
         <div className="header">
           <div className="flex items-center gap-6 mb-4">
             <img 
-              src="/elchin photo-cut.png" 
+              src="/elchin photo-cut.webp" 
               alt={cvData.profile.name[lang]}
               className="w-20 h-20 rounded-lg object-cover"
             />
@@ -314,9 +314,15 @@ const CVGenerator: React.FC<CVGeneratorProps> = ({ lang }) => {
             <div key={index} className="experience-item">
               <div className="flex items-start gap-3">
                 <img 
-                  src={cert.badge} 
+                  src={cert.badge.replace(/\.(jpg|jpeg|png)$/i, '.webp')} 
                   alt={cert.name[lang]} 
                   className="w-12 h-12 rounded-lg object-contain bg-muted/30 p-1"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src.includes('.webp')) {
+                      target.src = cert.badge;
+                    }
+                  }}
                 />
                 <div className="flex-1">
                   <div className="company">{cert.name[lang]}</div>
