@@ -859,7 +859,7 @@ function ProfilePage() {
             
             {/* Download CV Button */}
             <Button 
-              onClick={() => window.open(`/cv-page?lang=${lang}`, '_blank')}
+              onClick={() => window.open(`/resume?lang=${lang}`, '_blank')}
               size="sm"
             >
               <Download className="h-4 w-4 mr-2" />
@@ -961,7 +961,7 @@ function ProfilePage() {
                     
                     {/* Download CV Button */}
                     <Button 
-                      onClick={() => window.open(`/cv-page?lang=${lang}`, '_blank')}
+                      onClick={() => window.open(`/resume?lang=${lang}`, '_blank')}
                       size="sm"
                       className="hover:scale-105 hover:shadow-lg transition-all duration-300 bg-primary hover:bg-primary/90"
                     >
@@ -1186,7 +1186,7 @@ function ProfilePage() {
               <div className="text-sm text-muted-foreground">{lang === "cz" ? "Kompletní profesní profil pro tisk nebo sdílení." : "Complete professional profile for printing or sharing."}</div>
             </div>
             <Button variant="secondary" asChild size="lg">
-              <a href={`/cv-page?lang=${lang}`} target="_blank" rel="noreferrer">
+              <a href={`/resume?lang=${lang}`} target="_blank" rel="noreferrer">
                 <Download className="h-4 w-4 mr-2"/>
                 {lang === "cz" ? "Stáhnout CV" : "Download CV"}
               </a>
@@ -1207,7 +1207,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/cv-page" element={<CVPage />} />
+        <Route path="/resume" element={<CVPage />} />
         <Route path="/*" element={<ProfilePage />} />
       </Routes>
     </Router>
