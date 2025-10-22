@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/((?!assets|favicon|elchin|company-logos|logos|projects|cv|robots.txt|wf-certificate).*)",
+      "source": "/((?!assets|favicon|elchin|company-logos|logos|projects|cv/|cv-page|robots.txt|wf-certificate).*)",
       "destination": "/index.html"
     }
   ]
