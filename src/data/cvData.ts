@@ -293,7 +293,7 @@ export const experience = [
   }
 ];
 
-// Combined CV data export - Updated with English job roles
+// Combined CV data export
 export const cvData = {
   profile,
   education,
