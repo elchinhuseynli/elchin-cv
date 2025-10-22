@@ -303,4 +303,4 @@ export const cvData = {
   skills,
   softSkills,
   experience,
-};
+};// Force deployment with English job roles - Wed Oct 22 11:22:28 CEST 2025
