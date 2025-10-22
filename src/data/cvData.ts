@@ -129,7 +129,7 @@ export const experience = [
   },
   {
     company: "Flex Digital Agency s.r.o.",
-    role: "Zakladatel · Kreativní ředitel · Web Developer",
+    role: "Founder · Creative Director · Web Developer",
     dates: "2020 – present",
     logo: "/company-logos/flex.jpeg", // We'll need to add this logo
     description: {
@@ -167,7 +167,7 @@ export const experience = [
   },
   {
     company: "SUAS Group a.s.",
-    role: "Vedoucí grafik & web designér",
+    role: "Lead Graphic & Web Designer",
     dates: "2021 – 2024",
     logo: "/company-logos/suas_group_logo.jpeg", // We'll need to add this logo
     description: {
@@ -201,7 +201,7 @@ export const experience = [
   },
   {
     company: "Art de Suisse s.r.o.",
-    role: "Vedoucí marketingu & rozvoje značky",
+    role: "Head of Marketing & Brand Development",
     dates: "2014 – 2021",
     logo: "/company-logos/art_de_suisse_logo.jpeg", // We'll need to add this logo
     description: {
@@ -233,7 +233,7 @@ export const experience = [
   },
   {
     company: "AZSIĞORTA ASC",
-    role: "Manažer prodeje",
+    role: "Sales Manager",
     dates: "2009 – 2010",
     logo: "/company-logos/azsigorta.jpeg", // No logo available
     description: {
@@ -253,7 +253,7 @@ export const experience = [
   },
   {
     company: "AXA MBASK OJSC",
-    role: "Obchodní zástupce",
+    role: "Sales Representative",
     dates: "2008 – 2009",
     logo: "/company-logos/AXA_Logo.svg", // No logo available
     description: {
@@ -273,7 +273,7 @@ export const experience = [
   },
   {
     company: "Ateshgah Insurance Group",
-    role: "Pojišťovací upisovatel",
+    role: "Insurance Underwriter",
     dates: "2006 – 2008",
     logo: "/company-logos/ateshgah-logo.png", 
     description: {
